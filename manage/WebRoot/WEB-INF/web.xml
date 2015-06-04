@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name></display-name>
+  <servlet>
+    <description> </description>
+    <display-name> </display-name>
+    <servlet-name>baseContentServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.baseContentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description> </description>
+    <display-name> </display-name>
+    <servlet-name>baseCategoryCodeServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.baseCategoryCodeServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description> </description>
+    <display-name> </display-name>
+    <servlet-name>addBaseContentServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.addBaseContentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description> </description>
+    <display-name> </display-name>
+    <servlet-name>updateBaseContentServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.updateBaseContentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description> </description>
+    <display-name> </display-name>
+    <servlet-name>delBaseContentServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.delBaseContentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description> </description>
+    <display-name> </display-name>
+    <servlet-name>delBatchRowServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.delBatchRowServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description> </description>
+    <display-name> </display-name>
+    <servlet-name>getRowServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.getRowServlet</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>baseContentServlet</servlet-name>
+    <url-pattern>/baseContentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>baseCategoryCodeServlet</servlet-name>
+    <url-pattern>/baseCategoryCodeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>addBaseContentServlet</servlet-name>
+    <url-pattern>/addBaseContentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>updateBaseContentServlet</servlet-name>
+    <url-pattern>/updateBaseContentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>delBaseContentServlet</servlet-name>
+    <url-pattern>/delBaseContentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>delBatchRowServlet</servlet-name>
+    <url-pattern>/delBatchRowServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>getRowServlet</servlet-name>
+    <url-pattern>/getRowServlet</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+  
+  
+  <!-- 郑洁 -->
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPartTypeJsonServlet</servlet-name>
+    <servlet-class>manage.servlet.GetPartTypeJsonServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPartTypeSevlet</servlet-name>
+    <servlet-class>manage.servlet.AddPartTypeSevlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdatePartTypeServlet</servlet-name>
+    <servlet-class>manage.servlet.UpdatePartTypeServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeletePartTypeServlet</servlet-name>
+    <servlet-class>manage.servlet.DeletePartTypeServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeleteBatchServlet</servlet-name>
+    <servlet-class>manage.servlet.DeleteBatchServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>PrintServlet</servlet-name>
+    <servlet-class>manage.servlet.PrintServlet</servlet-class>
+  </servlet>
+
+
+
+
+
+  
+
+
+  <servlet-mapping>
+    <servlet-name>GetPartTypeJsonServlet</servlet-name>
+    <url-pattern>/base/GetPartTypeJsonServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPartTypeSevlet</servlet-name>
+    <url-pattern>/base/AddPartTypeSevlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdatePartTypeServlet</servlet-name>
+    <url-pattern>/base/UpdatePartTypeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePartTypeServlet</servlet-name>
+    <url-pattern>/base/DeletePartTypeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteBatchServlet</servlet-name>
+    <url-pattern>/base/DeleteBatchServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PrintServlet</servlet-name>
+    <url-pattern>/util/PrintServlet</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetNameServlet</servlet-name>
+    <servlet-class>manage.servlet.GetNameServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetNameServlet</servlet-name>
+    <url-pattern>/base/GetNameServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <!-- 穆俊霖 -->
+   <display-name></display-name>
+  <servlet>
+    <servlet-name>ShowCustomerSupplier</servlet-name>
+    <servlet-class>com.manage.servlet.ShowCustomerSupplier</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DoSupplier</servlet-name>
+    <servlet-class>com.manage.servlet.DoSupplier</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteServlet</servlet-name>
+    <servlet-class>com.manage.servlet.DeleteServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>updateServlet</servlet-name>
+    <servlet-class>com.manage.servlet.updateServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>addBaseCustomerServlet</servlet-name>
+    <servlet-class>com.manage.servlet.addBaseCustomerServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteBetchServlet</servlet-name>
+    <servlet-class>com.manage.servlet.DeleteBetchServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>searchCustomerServlet</servlet-name>
+    <servlet-class>com.manage.servlet.searchCustomerServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>outExcelServlet</servlet-name>
+    <servlet-class>com.manage.servlet.outExcelServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description> </description>
+    <display-name> </display-name>
+    <servlet-name>printBaseContentServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.printBaseContentServlet</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>ShowCustomerSupplier</servlet-name>
+    <url-pattern>/cus/ShowCustomerSupplier</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DoSupplier</servlet-name>
+    <url-pattern>/cus/DoSupplier</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteServlet</servlet-name>
+    <url-pattern>/cus/DeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>updateServlet</servlet-name>
+    <url-pattern>/cus/updateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>addBaseCustomerServlet</servlet-name>
+    <url-pattern>/cus/addBaseCustomerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteBetchServlet</servlet-name>
+    <url-pattern>/cus/DeleteBetchServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>searchCustomerServlet</servlet-name>
+    <url-pattern>/cus/searchCustomerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>outExcelServlet</servlet-name>
+    <url-pattern>/cus/outExcelServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>printBaseContentServlet</servlet-name>
+    <url-pattern>/printBaseContentServlet</url-pattern>
+  </servlet-mapping>	
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+  
+  
+  <!-- 王亚军 -->
+  
+   <servlet>
+    <servlet-name>AddCompanyServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.AddCompanyServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>PrintInfoServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.PrintInfoServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>BillsPrintServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.BillsPrintServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PartTypeInfoPrint</servlet-name>
+    <servlet-class>com.root.base.servlet.PartTypeInfoPrint</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PartInfoPrintServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.PartInfoPrintServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetCompanyCodeServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.GetCompanyCodeServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetCompanyServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.GetCompanyServlet</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+ 
+
+ 
+  <servlet-mapping>
+    <servlet-name>AddCompanyServlet</servlet-name>
+    <url-pattern>/base/AddCompanyServlet</url-pattern>
+  </servlet-mapping>
+ 
+
+  <servlet-mapping>
+    <servlet-name>PrintInfoServlet</servlet-name>
+    <url-pattern>/base/PrintInfoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BillsPrintServlet</servlet-name>
+    <url-pattern>/base/BillsPrintServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PartTypeInfoPrint</servlet-name>
+    <url-pattern>/base/PartTypeInfoPrint</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PartInfoPrintServlet</servlet-name>
+    <url-pattern>/base/PartInfoPrintServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetCompanyCodeServlet</servlet-name>
+    <url-pattern>/base/GetCompanyCodeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetCompanyServlet</servlet-name>
+    <url-pattern>/base/GetCompanyServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <!-- 孔凯俞 -->
+  
+  
+   <servlet>
+    <servlet-name>GetBasePartsServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.GetBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddBasePartsServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.AddBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DelBasePartsServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.DelBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateBasePartsServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.UpdateBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DelselServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.DelselServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PrintBasePartsServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.PrintBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description> </description>
+    <display-name> </display-name>
+    <servlet-name>getTomcat</servlet-name>
+    <servlet-class>com.root.base.servlet.getTomcat</servlet-class>
+  </servlet>
+  <servlet>
+    <description> </description>
+    <display-name> </display-name>
+    <servlet-name>downoadBaseContent</servlet-name>
+    <servlet-class>com.root.base.servlet.downoadBaseContent</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>GetBasePartsServlet</servlet-name>
+    <url-pattern>/base/GetBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddBasePartsServlet</servlet-name>
+    <url-pattern>/base/AddBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DelBasePartsServlet</servlet-name>
+    <url-pattern>/base/DelBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateBasePartsServlet</servlet-name>
+    <url-pattern>/base/UpdateBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DelselServlet</servlet-name>
+    <url-pattern>/base/DelselServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PrintBasePartsServlet</servlet-name>
+    <url-pattern>/base/PrintBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>getTomcat</servlet-name>
+    <url-pattern>/getTomcat</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>downoadBaseContent</servlet-name>
+    <url-pattern>/downoadBaseContent</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+  
+  
+</web-app>

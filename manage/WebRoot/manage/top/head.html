@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../console_ui/themes/default/easyui.css" rel="stylesheet" type="text/css" /></link>
+<link href="../console_ui/themes/icon.css" / rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../console_ui/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../console_ui/js/jquery.easyui.min.js"></script>
+<style type="text/css">
+body{
+	font-size:12px;
+	color:#06C;  font-family: Verdana,微软雅黑,黑体;
+	margin:0px; padding:0px}
+#title{
+	padding:5px 20px;
+    float:left; 
+	font-size:16px;}	 
+#navbar{
+	background-color:#DAE8F5; 		     
+	border-top:4px solid #5184AF;
+	height:50px;
+	width:100%;
+	white-space:nowrap;
+	repeat-x center 50%;
+	}
+#profile{
+	float:right;
+	height:50px;
+	line-height:50px; 
+	padding:0px 5px;
+}
+#search{
+	float:right;
+	height:40px;
+	padding-top:0px;
+	line-height:50px;
+	display:inline;
+	
+}
+.bt{ padding:3px 5px; font-size:12px; color:#333; letter-spacing:3px;}
+.input-text { padding:2px 4px; border:1px solid #79a4cf;}
+
+input{ border:1px solid #333;}
+
+#navbar #profile .return a { margin:0px 5px; padding-left:18px; background:url(../console_ui/themes/icons/addnew.gif) left center no-repeat;}
+#navbar #profile .new a { margin:0px 10px; background:url(../console_ui/themes/icons/new.gif) left center no-repeat; padding-left:18px; }
+a:link, a:visited { color:#06C; text-decoration:none; }
+</style>
+</head>
+
+<body>
+	<div id="navbar">
+    	<div id="title">杰瑞配件经营好帮手</div>
+        <div id="search">
+            <form method="post" action="">
+                <input type="text" name="keyword" class="input-text"/>
+                <input type="submit" name="submit" class="easyui-linkbutton bt" value="搜索" />
+            </form>
+        </div>
+        <div id="profile">您好，管理员
+            <span class="new"><a href="#">更改个人信息</a></span>
+            <span class="return"><a href="#">安全退出</a></span>
+        </div>
+    </div>
+</body>
+</html>
