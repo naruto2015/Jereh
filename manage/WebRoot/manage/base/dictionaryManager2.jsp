@@ -294,9 +294,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </form>
     <hr>
        <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">查询</a>|  
-       <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true " onclick=addBase()>增加</a> | 
-       <a id="btn3" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true " onclick=delBatchRow()>批量删除</a> | 
-       <a id="btn4" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true " onclick=ExporterExcel()>导出EXCEL</a>  |
+       <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true " onclick="addBase()">增加</a> | 
+       <a id="btn3" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true " onclick="delBatchRow()">批量删除</a> | 
+       <a id="btn4" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true " onclick="ExporterExcel()"> 导出EXCEL</a>  |
    </div>
  
  

@@ -21,7 +21,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.io.IOUtils;
 
-import sun.misc.BASE64Encoder;
+
 
 import com.root.base.dao.impl.DocumentHandler;
 

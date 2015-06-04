@@ -3,6 +3,7 @@ package com.manage.servlet;
 import java.io.IOException;
 
 
+
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +26,7 @@ import com.manage.entity.CustomerSupplier;
 import com.manage.entity.PageBean;
 import com.manage.service.CustomerSupplierService;
 import com.manage.service.impl.CSServiceImpl;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 
 
 public class ShowCustomerSupplier extends HttpServlet {
