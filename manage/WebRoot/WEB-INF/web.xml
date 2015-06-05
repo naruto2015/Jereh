@@ -372,6 +372,11 @@
     <servlet-name>downoadBaseContent</servlet-name>
     <servlet-class>com.root.base.servlet.downoadBaseContent</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>downloadServlet</servlet-name>
+    <servlet-class>com.manage.servlet.downloadServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -412,6 +417,10 @@
   <servlet-mapping>
     <servlet-name>downoadBaseContent</servlet-name>
     <url-pattern>/downoadBaseContent</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>downloadServlet</servlet-name>
+    <url-pattern>/cus/downloadServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
