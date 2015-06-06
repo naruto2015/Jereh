@@ -290,7 +290,10 @@
     <servlet-name>GetCompanyServlet</servlet-name>
     <servlet-class>com.root.base.servlet.GetCompanyServlet</servlet-class>
   </servlet>
-
+<servlet>
+    <servlet-name>AddSaleOrderServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.AddSaleOrderServlet</servlet-class>
+  </servlet>
 
 
 
@@ -331,7 +334,10 @@
     <servlet-name>GetCompanyServlet</servlet-name>
     <url-pattern>/base/GetCompanyServlet</url-pattern>
   </servlet-mapping>
-  
+   <servlet-mapping>
+    <servlet-name>AddSaleOrderServlet</servlet-name>
+    <url-pattern>/sale/AddSaleOrderServlet</url-pattern>
+  </servlet-mapping>
   
   <!-- 孔凯俞 -->
   
@@ -376,6 +382,8 @@
     <servlet-name>downloadServlet</servlet-name>
     <servlet-class>com.manage.servlet.downloadServlet</servlet-class>
   </servlet>
+  
+
 
 
 
@@ -422,6 +430,7 @@
     <servlet-name>downloadServlet</servlet-name>
     <url-pattern>/cus/downloadServlet</url-pattern>
   </servlet-mapping>
+ 
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>

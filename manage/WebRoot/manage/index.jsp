@@ -70,7 +70,7 @@ function addTab(t,u){
             <div title="销售管理" iconCls="icon-remove">
                 <ul >
                		<li><a href="#" onclick="addTab('报价单据管理','sell/offer.html')" >报价单据管理</a></li>   
-                	<li><a href="#" onclick="addTab('销售订单管理','sell/order.html')" >销售订单管理</a></li>
+                	<li><a href="#" onclick="addTab('销售订单管理','sale/order.jsp')" >销售订单管理</a></li>
                     <li><a href="#" onclick="addTab('销售退货管理','sell/return.html')" >销售退货管理</a></li>
                     <li><a href="#" onclick="addTab('销售合同管理','sell/pact.html')" >销售合同管理</a></li>     
                 </ul>
