@@ -3,28 +3,28 @@ package com.root.base.entity;
 import java.util.Date;
 
 public class BaseParts {
-	private String partsCode;//Åä¼þ±àºÅ
-	private String partsName;//Åä¼þÃû³Æ
-	private String spell;//Åä¼þÃû³ÆÆ´Òô
-	private String partsCategory;//Åä¼þÀà±ð
-	private String partsBrand;//Åä¼þÆ·ÅÆ
-	private String partsNo;//¼þºÅ
-	private String partsGeneralPartsNo;//Í¨ÓÃ¼þºÅ
-	private String partsModel;//ÐÍºÅ
-	private String partsModerOld;//¾ÉÐÍºÅ
-	private String partsSize;//Åä¼þ³ß´ç
-	private String partsWeight;//Åä¼þÖØÁ¿
-	private String partsImg;//Åä¼þÍ¼Æ¬
-	private String partsUnit;//Åä¼þµ¥Î»
-	private String salePrice;//ÏúÊÛ¼Û¸ñ
-	private int costPrice;//Æ½¾ù³É±¾¼Û
-	private String isShow;//ÊÇ·ñÓÐÐ§
-	private String remarks;//±¸×¢
-	private Date addDate;//Ìí¼ÓÈÕÆÚ
-	private String addUser;//²Ù×÷ÓÃ»§
-	private String addUserName;//²Ù×÷ÓÃ»§ÐÕÃû
-	private String addIp;//²Ù×÷IP
-	private String compcode;//ËùÊô¹«Ë¾
+	private String partsCode;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String partsName;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String spell;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ´ï¿½ï¿½
+	private String partsCategory;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String partsBrand;//ï¿½ï¿½ï¿½Æ·ï¿½ï¿½
+	private String partsNo;//ï¿½ï¿½ï¿½ï¿½
+	private String partsGeneralPartsNo;//Í¨ï¿½Ã¼ï¿½ï¿½ï¿½
+	private String partsModel;//ï¿½Íºï¿½
+	private String partsModelOld;//ï¿½ï¿½ï¿½Íºï¿½
+	private String partsSize;//ï¿½ï¿½ï¿½ï¿½ß´ï¿½
+	private String partsWeight;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String partsImg;//ï¿½ï¿½ï¿½Í¼Æ¬
+	private String partsUnit;//ï¿½ï¿½ï¿½ï¿½ï¿½Î»
+	private String salePrice;//ï¿½ï¿½ï¿½Û¼Û¸ï¿½
+	private int costPrice;//Æ½ï¿½ï¿½É±ï¿½ï¿½ï¿½
+	private String isShow;//ï¿½Ç·ï¿½ï¿½ï¿½Ð§
+	private String remarks;//ï¿½ï¿½×¢
+	private Date addDate;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String addUser;//ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
+	private String addUserName;//ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String addIp;//ï¿½ï¿½ï¿½ï¿½IP
+	private String compcode;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾
 	
 	public String getPartsCode() {
 		return partsCode;
@@ -74,11 +74,11 @@ public class BaseParts {
 	public void setPartsModel(String partsModel) {
 		this.partsModel = partsModel;
 	}
-	public String getPartsModerOld() {
-		return partsModerOld;
+	public String getPartsModelOld() {
+		return partsModelOld;
 	}
-	public void setPartsModerOld(String partsModerOld) {
-		this.partsModerOld = partsModerOld;
+	public void setPartsModelOld(String partsModelOld) {
+		this.partsModelOld = partsModelOld;
 	}
 	public String getPartsSize() {
 		return partsSize;

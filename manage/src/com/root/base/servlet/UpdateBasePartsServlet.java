@@ -72,7 +72,7 @@ public class UpdateBasePartsServlet extends HttpServlet {
 		part.setPartsNo(partsno);
 		part.setPartsGeneralPartsNo(partsgeneralpartsno);
 		part.setPartsModel(partsmodel);
-		part.setPartsModerOld(partsmodelold);
+		part.setPartsModelOld(partsmodelold);
 		part.setPartsSize(partssize);
 		part.setPartsWeight(partsweight);
 		part.setPartsImg(partsimg);

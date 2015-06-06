@@ -63,7 +63,7 @@ function addTab(t,u){
                 <ul >
                  <li><a href="#" onclick="addTab('询价单据管理','purchase/search.html')">询价单据管理</a></li>
                  <li><a href="#" onclick="addTab('采购订单管理','purchase/order.html')">采购订单管理</a></li>
-                 <li><a href="#" onclick="addTab('采购退货管理','purchase/return.html')">采购退货管理</a></li>
+                 <li><a href="#" onclick="addTab('采购退货管理','purchase/return.jsp')">采购退货管理</a></li>
                  <li><a href="#" onclick="addTab('采购合同管理','purchase/pact.html')">采购合同管理</a></li>
                 </ul>
             </div>
