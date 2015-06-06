@@ -31,7 +31,7 @@ public class BasePartsDao extends BaseDao implements IBasePartsDao {
 				part.setPartsNo(rs.getString("partsno"));
 				part.setPartsGeneralPartsNo(rs.getString("partsgeneralpartsno"));
 				part.setPartsModel(rs.getString("partsmodel"));
-				part.setPartsModerOld(rs.getString("partsmodelold"));
+				part.setPartsModelOld(rs.getString("partsmodelold"));
 				part.setPartsSize(rs.getString("partssize"));
 				part.setPartsWeight(rs.getString("partsweight"));
 				part.setPartsImg(rs.getString("partsimg"));
@@ -68,7 +68,7 @@ public class BasePartsDao extends BaseDao implements IBasePartsDao {
 		int ret=0;
 		ret=super.executeUpdate(sql,new Object[]{part.getPartsName(),part.getPartsCategory(),
 				part.getPartsBrand(),part.getPartsNo(),part.getPartsGeneralPartsNo(),part.getPartsModel(),
-				part.getPartsModerOld(),part.getPartsSize(),part.getPartsWeight(),part.getPartsImg(),
+				part.getPartsModelOld(),part.getPartsSize(),part.getPartsWeight(),part.getPartsImg(),
 				part.getPartsUnit(),part.getSalePrice(),part.getIsShow(),part.getRemarks(),part.getPartsCode()});
 		return ret;
 	}
@@ -82,7 +82,7 @@ public class BasePartsDao extends BaseDao implements IBasePartsDao {
 		int ret=0;
 		ret=super.executeUpdate(sql, new Object[]{part.getPartsCode(),part.getPartsName(),part.getPartsCategory(),
 				part.getPartsBrand(),part.getPartsNo(),part.getPartsGeneralPartsNo(),part.getPartsModel(),
-				part.getPartsModerOld(),part.getPartsSize(),part.getPartsWeight(),part.getPartsImg(),
+				part.getPartsModelOld(),part.getPartsSize(),part.getPartsWeight(),part.getPartsImg(),
 				part.getPartsUnit(),part.getSalePrice(),part.getIsShow(),part.getRemarks()});
 		return ret;
 	}
@@ -113,7 +113,7 @@ public class BasePartsDao extends BaseDao implements IBasePartsDao {
 				part.setPartsNo(rs.getString("partsno"));
 				part.setPartsGeneralPartsNo(rs.getString("partsgeneralpartsno"));
 				part.setPartsModel(rs.getString("partsmodel"));
-				part.setPartsModerOld(rs.getString("partsmodelold"));
+				part.setPartsModelOld(rs.getString("partsmodelold"));
 				part.setPartsSize(rs.getString("partssize"));
 				part.setPartsWeight(rs.getString("partsweight"));
 				part.setPartsImg(rs.getString("partsimg"));
@@ -139,15 +139,5 @@ public class BasePartsDao extends BaseDao implements IBasePartsDao {
 		sql="select count(partscode) from baseparts";
 		pageBean.setRecordCount(super.executeTotalCount(sql));
 		return pageBean;
-	}
-	
-	public static void main(String[] args) {
-		BaseParts bp=new BaseParts();
-		bp.setPartsNo("testzc0001");
-		bp.setPartsName("Öá³Ð");
-		bp.setPartsCategory("Öá³Ð");
-		BasePartsDao bps=new BasePartsDao();
-		bps.findByNoNameCategory(bp,1,5);
-		System.out.println(bps);
 	}
 }
