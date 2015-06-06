@@ -42,8 +42,6 @@ function delRows(){
 	}
 
 $(function(){
-	//样式设置
-	
 	//日期转化
 	$("input.easyui-datebox").datebox({
 		formatter:function(date){
@@ -145,6 +143,22 @@ $(function(){
 
 	});
 	
+//随机生成随机数
+	function getCode(){
+		var date=new Date();
+		var year=date.getFullYear();
+		var month=date.getMonth()+1;
+		if(month<10)month="0"+month;
+		var day=date.getDay();
+		if(day<10)day="0"+day;
+		var hour=date.getHours();
+		if(hour<10)hour="0"+hour;
+		var minute=date.getMinutes();
+		if(minute<10)minute='0'+minute;
+		var second=date.getSeconds();
+		if(second<10)second="0"+second;
+		return "MTCT"+year+month+day+hour+minute+second;
+		}
 //搜索
 	function searchBt(){}	
 	
@@ -163,7 +177,8 @@ $(function(){
 		width:800,
 		height:460,
 		});
-		$("input[name='orderCode']").val("dfaf");
+		var orderCode=getCode();
+		$("input[name='orderCode']").val(orderCode);
 		}
 	//保存订单
 	function saveOrder(){
