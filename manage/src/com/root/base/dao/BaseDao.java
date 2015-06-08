@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 
 public class BaseDao {
 	private static final String DRIVER_CLASS="oracle.jdbc.driver.OracleDriver";
-	private static final String URL="jdbc:oracle:thin:@localhost:1521:orcl";
+	private static final String URL="jdbc:oracle:thin:@localhost:1525:orcl";
 	private static final String USER="root";
 	private static final String PWD="123";
 	
