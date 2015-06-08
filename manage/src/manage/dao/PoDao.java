@@ -11,8 +11,8 @@ public interface PoDao {
 	public PageBean findAll(int pageNo,int pageSize);
 	public PageBean findByConditions(Po po,int pageNo,int pageSize);
 	public List<PoDetail> findByCode(String code);
-	public int insert(Po po,PoDetail pd);
-	public int update(Po po,PoDetail pd);
+	public int insert(Po po,List<PoDetail> pdList);
+	public int update(Po po,List<PoDetail> pdList);
 	public int delete(String code);
 
 }

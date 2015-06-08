@@ -21,6 +21,7 @@ $(function(){
 		title:'订单列表',
 		fit:true,
 		//fitColumns:true,
+		url:'/manage/purchase/GetPurorderServlet',
 		pagination:true,
 		pageList:[2,5,10,15],
 		pageSize:2,
@@ -31,12 +32,12 @@ $(function(){
 		columns:[[
 			{field:'check',checkbox:true},
 			{field:'code',title:'订单编号',width:100},
-			{field:'date',title:'订单日期',width:100},
-			{field:'cname',title:'供应商名',width:100},
-			{field:'count',title:'数量',width:100},
+			{field:'odate',title:'订单日期',width:100},
+			{field:'csname',title:'供应商名',width:100},
+			{field:'nums',title:'数量',width:100},
 			{field:'amount',title:'金额',width:100},
 			{field:'linkman',title:'联系人',width:100},
-			{field:'way',title:'联系方式',width:100},
+			{field:'tel',title:'联系方式',width:100},
 			{field:'state',title:'审核状态',width:100},
 			{field:'operator',title:'操作员',width:100},
 			{field:'opt',title:'操作',width:100,formatter:function(val,row,idx){
@@ -46,6 +47,9 @@ $(function(){
 			}}
 		]]
 	});
+	$("#orderList").datagrid("getPager").pagination({
+    	displayMsg:'当前显示从第 {from}到第 {to}，共 {total} 条记录'
+	}); 
 	$("#searchList").datagrid({
 		//fit:true,
 		fitColumns:true,
@@ -134,7 +138,7 @@ $(function(){
 		var y = date.getFullYear();
 		var m = date.getMonth()+1;
 		var d = date.getDate();
-		return y+"-"+m+"-"+d;
+		return d+"-"+m+"月-"+y;
 		},
 		parse:function(date){
 		 var t=Date.parse(date);
@@ -157,8 +161,19 @@ function showFrm(){
 		$("#see").hide();
 	}
 }
+function getCurDate(){
+	var date=new Date();
+	var year=date.getFullYear();
+	var month=date.getMonth()+1;
+	var day=date.getDay();
+	var hour=date.getHours();
+	var minute=date.getMinutes();
+	var second=date.getSeconds();
+	return "MTCJ"+year+month+day+hour+minute+second; 
+}
 function add(){
 	$("#mydg1").dialog("open");
+	$("input[name='code1']").val(getCurDate());
 }
 function delBatchRow(){
 	var rows=$("#orderList").datagrid("getSelections");
@@ -208,17 +223,30 @@ function addPart(){
 function choosePerson(){
 	$("#mydg4").dialog("open");
 }
+function search(){
+	var code=$("input[name='ocode']").val();
+	var beginDate=$("input[name='beginDate']").val();
+	var endTime=$("input[name='endDate']").val();
+	var csname=$("input[name='cname']").val();
+	var date={"code":code,"beginDate":beginDate,"endDate":endDate,"csname":csname};
+	$("#orderList").datagrid("reload",data);
+}
+function subFrm1(){
+	$("#myFrm").attr("action","/manage/purchase/AddPurorderServlet");
+	$("#myFrm").submit();
+	$("#mydg1").dialog("close");
+}
 </script>
 </head>
 
 <body>
 <div id="orderTools">
-	<form action="" method="post" id="see" style="display:none">
-	检索条件:	&nbsp;&nbsp;订单编号：<input type="text" name="code" />
-    开始日期：<input name="beginDate" type="text" class="easyui-datebox"  /> 
-    结束日期：<input name="endDate" type="text" class="easyui-datebox"  /> 
-    供应商名：<input name="cname" type="text" /> 
-    <input type="submit" value="搜索"/><input type="reset" value="重置" />
+	<form id="see" style="display:none">
+	    检索条件:&nbsp;&nbsp;订单编号：<input type="text" name="ocode" />
+	    开始日期：<input name="beginDate" type="text" class="easyui-datebox"  /> 
+	    结束日期：<input name="endDate" type="text" class="easyui-datebox"  /> 
+	    供应商名：<input name="cname" type="text" /> 
+    <input type="button" value="搜索" onclick="seach()"/><input type="reset" value="重置" />
     </form>
     <a href="#" class="easyui-linkbutton"  data-options="iconCls:'icon-search'" onclick="showFrm()">查询</a>
     <a href="#" class="easyui-linkbutton"  data-options="iconCls:'icon-add'" onclick="add()">增加</a>
@@ -234,15 +262,15 @@ function choosePerson(){
 	<form id="myFrm" method="post">
     <table id="t">
     <tr><td>订单编号:</td><td><input type="text" name="code1" /></td>
-    <td>订单日期:</td><td><input type="text" name="date1" class="easyui-datebox" /></td></tr>
-    <tr><td>供应商名:</td><td><input type="button" name="cname1" value="请双击选择供应商" ondblclick="choosePerson()"/></td>
+    <td>订单日期:</td><td><input type="text" name="odate" class="easyui-datebox" /></td></tr>
+    <tr><td>供应商名:</td><td><input type="button" name="csname" value="请双击选择供应商" ondblclick="choosePerson()"/></td>
     <td>联系人员:</td><td><input type="text" name="linkman" /></td></tr>
     <tr><td>电话:</td><td><input type="text" name="tel" /></td>
     <td>传真:</td><td><input type="text" name="zip" /></td></tr>
     <tr><td>运输方式:</td><td><select name="way">
     	<option>圆通快递</option><option>EMS</option><option>中通快递</option>
     </select></td>
-    <td>交货日期:</td><td><input type="text" name="date2" class="easyui-datebox" /></td></tr>
+    <td>交货日期:</td><td><input type="text" name="ddate" class="easyui-datebox" /></td></tr>
     <tr><td>业务人员:</td><td><input type="text" name="person" /></td>
     <td>备注:</td><td><input type="text" name="remarks" /></td></tr>
     </table>

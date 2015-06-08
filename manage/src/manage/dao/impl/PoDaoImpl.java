@@ -1,7 +1,9 @@
 package manage.dao.impl;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +102,12 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 				rs=super.executeQueryForPage(sql, new Object[]{po.getDdate(),pageNo*pageSize,(pageNo-1)*pageSize});
 				total=super.executeTotalCount(sql1, new Object[]{po.getDdate()});
 			}
+			if(po.getOdate()==null&&po.getDdate()==null&&po.getSupplier().getCsName()!=null){
+				sql="select * from v_purorder where csname=?";
+				sql1="select count(code) from v_purorder csname=?";
+				rs=super.executeQueryForPage(sql, new Object[]{po.getSupplier().getCsName(),pageNo*pageSize,(pageNo-1)*pageSize});
+				total=super.executeTotalCount(sql1, new Object[]{po.getSupplier().getCsName()});
+			}
 		}
 		List<Po> poList=new ArrayList<Po>();
 		PageBean pb=new PageBean();
@@ -185,21 +193,75 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 	}
 
 	@Override
-	public int insert(Po po,PoDetail pd) {
+	public int insert(Po po,List<PoDetail> pdList) {
 		// TODO Auto-generated method stub
-		return 0;
+		int ret=0;
+		String sql="insert into purchaseorder(code,suppliercode,contacter,telphone,fax,trans,deliverydate,"
+				+ "businesser,remarks,nums,numsprice,state,adduser,isshow,orderdate,adddate)"
+				+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,'1',sysdate,sysdate)";
+		ret=super.executeUpdate(sql, new Object[]{po.getCode(),po.getSupplier().getCode(),po.getLinkman(),
+				po.getTel(),po.getFax(),po.getTrans(),po.getDdate(),po.getBusinesser(),po.getRemark(),
+				po.getNums(),po.getAmount(),po.getState(),po.getOperator()});
+		if(ret==1){
+			for(PoDetail pd:pdList){
+				sql="insert into purchaseorder_detail(dcode,ocode,xcode,pcode,nums,price,rkstate,rknums,remarks) "
+						+ "values(seq_dcode.nextval,?,?,?,?,?,?,?,?)";
+				ret=super.executeUpdate(sql, new Object[]{pd.getOcode(),pd.getXcode(),pd.getPart().getPartsCode(),
+						pd.getNums(),pd.getPart().getSalePrice(),pd.getRkstate(),pd.getRknums(),pd.getRemark()});
+			}
+		}
+		return ret;
 	}
 
 	@Override
-	public int update(Po po,PoDetail pd) {
+	public int update(Po po,List<PoDetail> pdList) {
 		// TODO Auto-generated method stub
-		return 0;
+		int ret=0;
+		String sql="update purchaseorder set suppliercode=?,contacter=?,telphone=?,fax=?,trans=?,deliverydate=?,"
+				+ "businesser=?,remarks=?,nums=?,numsprice=?,state=?,adduser=? where code=?";
+		ret=super.executeUpdate(sql, new Object[]{po.getSupplier().getCode(),po.getLinkman(),
+				po.getTel(),po.getFax(),po.getTrans(),po.getDdate(),po.getBusinesser(),po.getRemark(),
+				po.getNums(),po.getAmount(),po.getState(),po.getOperator(),po.getCode()});
+		if(ret==1){
+			sql="delete from purchaseorder_detail where ocode=?";
+			super.executeUpdate(sql, new Object[]{po.getCode()});
+			for(PoDetail pd:pdList){
+				sql="insert into purchaseorder_detail(dcode,ocode,xcode,pcode,nums,price,rkstate,rknums,remarks) "
+						+ "values(seq_dcode.nextval,?,?,?,?,?,?,?,?)";
+				ret=super.executeUpdate(sql, new Object[]{pd.getOcode(),pd.getXcode(),pd.getPart().getPartsCode(),
+						pd.getNums(),pd.getPart().getSalePrice(),pd.getRkstate(),pd.getRknums(),pd.getRemark()});
+			}
+		}
+		return ret;
 	}
 
 	@Override
 	public int delete(String code) {
 		// TODO Auto-generated method stub
-		return 0;
+		int ret=0;
+		String sql1="delete from purchaseorder where code="+code;
+		String sql2="delete from purchaseorder_detail where ocode="+code;
+		Connection conn=super.getConnection();
+		Statement state=null;
+		try {
+			state=conn.createStatement();
+			state.addBatch(sql1);
+			state.addBatch(sql2);
+			state.executeBatch();
+			ret=1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				if(conn!=null)  conn.close();
+				if(state!=null) state.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return ret;
 	}
 
 }

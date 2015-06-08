@@ -31,15 +31,15 @@ public class PoServiceImpl implements PoService {
 	}
 
 	@Override
-	public int add(Po po, PoDetail pd) {
+	public int add(Po po, List<PoDetail> pdList) {
 		// TODO Auto-generated method stub
-		return poDao.insert(po, pd);
+		return poDao.insert(po, pdList);
 	}
 
 	@Override
-	public int update(Po po, PoDetail pd) {
+	public int update(Po po, List<PoDetail> pdList) {
 		// TODO Auto-generated method stub
-		return poDao.update(po, pd);
+		return poDao.update(po, pdList);
 	}
 
 	@Override

@@ -141,6 +141,9 @@ $(function(){
 			  ]
 			  ]
 	});
+	$("#newsList").datagrid("getPager").pagination({
+    	displayMsg:'当前显示从第 {from}到第 {to}，共 {total} 条记录'
+	}); 
 	$("#mydg1").dialog({
 		title:'添加配件',width:600,height:200,
 		buttons:[

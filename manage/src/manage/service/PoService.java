@@ -9,7 +9,7 @@ import manage.entity.PoDetail;
 public interface PoService {
 	public PageBean getByConditions(Po po,int pageNo,int pageSize);
 	public List<PoDetail> getDetailByCode(String code);
-	public int add(Po po,PoDetail pd);
-	public int update(Po po,PoDetail pd);
+	public int add(Po po,List<PoDetail> pdList);
+	public int update(Po po,List<PoDetail> pdList);
 	public int delete(String code);
 }

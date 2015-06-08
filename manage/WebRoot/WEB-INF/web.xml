@@ -37,12 +37,7 @@
     <servlet-name>delBatchRowServlet</servlet-name>
     <servlet-class>com.root.base.servlet.delBatchRowServlet</servlet-class>
   </servlet>
-  <servlet>
-    <description> </description>
-    <display-name> </display-name>
-    <servlet-name>getRowServlet</servlet-name>
-    <servlet-class>com.root.base.servlet.getRowServlet</servlet-class>
-  </servlet>
+  
 
 
 
@@ -74,10 +69,7 @@
     <servlet-name>delBatchRowServlet</servlet-name>
     <url-pattern>/delBatchRowServlet</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>getRowServlet</servlet-name>
-    <url-pattern>/getRowServlet</url-pattern>
-  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
@@ -122,6 +114,18 @@
     <servlet-name>PrintServlet</servlet-name>
     <servlet-class>manage.servlet.PrintServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetNameServlet</servlet-name>
+    <servlet-class>manage.servlet.GetNameServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPurorderServlet</servlet-name>
+    <servlet-class>manage.servlet.GetPurorderServlet</servlet-class>
+  </servlet>
 
 
 
@@ -153,16 +157,14 @@
   <servlet-mapping>
     <servlet-name>PrintServlet</servlet-name>
     <url-pattern>/util/PrintServlet</url-pattern>
-  </servlet-mapping>
-   <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>GetNameServlet</servlet-name>
-    <servlet-class>manage.servlet.GetNameServlet</servlet-class>
-  </servlet>
+  </servlet-mapping>  
   <servlet-mapping>
     <servlet-name>GetNameServlet</servlet-name>
     <url-pattern>/base/GetNameServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPurorderServlet</servlet-name>
+    <url-pattern>/purchase/GetPurorderServlet</url-pattern>
   </servlet-mapping>
   
   
@@ -376,6 +378,20 @@
     <servlet-name>downloadServlet</servlet-name>
     <servlet-class>com.manage.servlet.downloadServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPurorderServlet</servlet-name>
+    <servlet-class>manage.servlet.GetPurorderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPurorderServlet</servlet-name>
+    <servlet-class>manage.servlet.AddPurorderServlet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -421,6 +437,14 @@
   <servlet-mapping>
     <servlet-name>downloadServlet</servlet-name>
     <url-pattern>/cus/downloadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPurorderServlet</servlet-name>
+    <url-pattern>/purchase/GetPurorderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPurorderServlet</servlet-name>
+    <url-pattern>/purchase/AddPurorderServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
