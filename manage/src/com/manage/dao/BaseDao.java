@@ -15,7 +15,7 @@ public class BaseDao {
 	private Connection conn=null;
 	private PreparedStatement pstm=null;
 	private ResultSet rs=null;
-	private final static String URL="jdbc:oracle:thin:@localhost:1525:orcl";
+	private final static String URL="jdbc:oracle:thin:@localhost:1521:orcl";
 	private final static String USER="root";
 	private final static String PWD="123";
 	static {

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BaseDao {
-	private final static String URL="jdbc:oracle:thin:@localhost:1525:orcl";
+	private final static String URL="jdbc:oracle:thin:@localhost:1521:orcl";
 	private final static String USER="root";
 	private final static String PWD="123";
 	
