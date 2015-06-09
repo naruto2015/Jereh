@@ -9,9 +9,11 @@ import com.root.base.dao.BaseDao;
 import com.root.base.dao.IBasePartsDao;
 import com.root.base.entity.BaseParts;
 import com.root.base.entity.PageBean;
+import com.root.base.entity.StockiInDetail;
 
 public class BasePartsDao extends BaseDao implements IBasePartsDao {
 
+	//查找所有的配件信息
 	@Override
 	public PageBean findAll(int pageNo, int pageSize) {
 		// TODO Auto-generated method stub
@@ -45,7 +47,9 @@ public class BasePartsDao extends BaseDao implements IBasePartsDao {
 				part.setAddUserName(rs.getString("addusername"));
 				part.setAddIp(rs.getString("addip"));
 				part.setCompcode(rs.getString("compcode"));
+				
 				partsList.add(part);
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -59,6 +63,11 @@ public class BasePartsDao extends BaseDao implements IBasePartsDao {
 		return pageBean;
 	}
 
+	public static void main(String[] args){
+		BasePartsDao bpd=new BasePartsDao();
+		PageBean pageBean=bpd.findAll(1, 0);
+		pageBean.getData();
+	}
 	@Override
 	public int update(BaseParts part) {
 		// TODO Auto-generated method stub

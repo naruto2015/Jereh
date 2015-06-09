@@ -1,6 +1,6 @@
 package com.root.util;
 
-import java.text.ParseException;
+import java.text.ParseException; 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,20 +9,29 @@ public class DateUtil {
 	
 	private static SimpleDateFormat dateFormat=
 			new SimpleDateFormat("yyyy-MM-dd");
+	private static SimpleDateFormat sqlDateFormat=
+			new SimpleDateFormat("dd-MMæœˆ-yyyy");
 	private static SimpleDateFormat time=
 			new SimpleDateFormat("hh:mm:ss");
 	private static SimpleDateFormat longFormat=new 
 			SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	private static SimpleDateFormat chFormat=new 
-			SimpleDateFormat("yyyyÄêMMÔÂddÈÕ HH:mm:ss");
+			SimpleDateFormat("yyyyå¹´MMæœˆddæ—¥ HH:mm:ss");
 	private static SimpleDateFormat chFormat2=new 
-			SimpleDateFormat("yyyyÄêMMÔÂddÈÕ E");
+			SimpleDateFormat("yyyyå¹´MMæœˆddæ—¥  E");
 	private static SimpleDateFormat dateCode=
 			new SimpleDateFormat("yyyyMMddhhmmss");
+	private static SimpleDateFormat datesqlFormat=
+			new SimpleDateFormat("dd-MMæœˆ-yyyy");
+	
 	public static Date toDate(String strDate) 
 			throws ParseException{
 		return dateFormat.parse(strDate);
 		
+	}
+	public static Date tosqlDate(String strDate) 
+			throws ParseException{
+		return sqlDateFormat.parse(strDate);
 	}
 	public static String toFormatDate(long time){
 		return chFormat.format(new Date(time));
@@ -47,10 +56,18 @@ public class DateUtil {
 		return name;
 		
 	}
+	public static String toStringDatesql(Date time){
+		return datesqlFormat.format(time);
+	}
 	
 	public static String getCompCode(Date time){
 		return dateCode.format(time);
 	}
-	
-	
+	public static void main(String[] args) throws ParseException{
+		DateUtil du=new DateUtil();
+		//Date date=toDate("2015-06-08");
+		Date date=du.tosqlDate("8-6æœˆ-2015");
+		String time=du.toStringDatesql(date);
+		System.out.print(time);
+	}
 }

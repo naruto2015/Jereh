@@ -382,6 +382,26 @@
     <servlet-name>downloadServlet</servlet-name>
     <servlet-class>com.manage.servlet.downloadServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>GetSaleOrderServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.GetSaleOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DelSaleOrderServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.DelSaleOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ModifySaleOrderServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.ModifySaleOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetSaleOrderByCodeServlet</servlet-name>
+    <servlet-class>com.root.base.servlet.GetSaleOrderByCodeServlet</servlet-class>
+  </servlet>
+
+
+
+
   
 
 
@@ -429,6 +449,22 @@
   <servlet-mapping>
     <servlet-name>downloadServlet</servlet-name>
     <url-pattern>/cus/downloadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetSaleOrderServlet</servlet-name>
+    <url-pattern>/sale/GetSaleOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DelSaleOrderServlet</servlet-name>
+    <url-pattern>/sale/DelSaleOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ModifySaleOrderServlet</servlet-name>
+    <url-pattern>/sale/ModifySaleOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetSaleOrderByCodeServlet</servlet-name>
+    <url-pattern>/sale/GetSaleOrderByCodeServlet</url-pattern>
   </servlet-mapping>
  
   <welcome-file-list>

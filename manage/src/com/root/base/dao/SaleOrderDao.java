@@ -2,23 +2,23 @@ package com.root.base.dao;
 
 import java.util.List;
 
+import com.root.base.entity.PageBean;
 import com.root.base.entity.SaleOrder;
 
 public interface SaleOrderDao {
 
-	//获取订单
-	public List<SaleOrder> findSaleOrder();
+	//获取订单列表
+	public PageBean findSaleOrder(int pageNo,int pageSize);
 	
-	//根据订单编号获取
-	public SaleOrder findSaleOrderByOrderCode(String orderCode);
-	
-	//根据开始日期获取订单
-	public SaleOrder findSaleOrderByStartDate(String startDate);
-	
-	//根据结束时间获取订单
-	public SaleOrder findSaleOrderByEndDate(String endDate);
+	//获取订单by订单号
+	public SaleOrder findSaleOrderByCode(String code);
 	
 	//添加订单
 	public int addOrder(SaleOrder order);
 	 
+	//删除订单
+	public int delOrder(String code);
+	
+	//修改订单
+	public int updateOrder(SaleOrder order);
 }

@@ -17,10 +17,6 @@
 
 		$("td:odd").css({"padding-left":"80px"});
 		$("td:even").css({"padding-left":"40px"});
-		
-	
-	
-	
 	
 		$.ajax({
 		type:'post',
@@ -51,8 +47,6 @@
 			$("input[name='bank']").val(data.compBank);
 			$("input[name='tax']").val(data.compTax);
 			$("input[name='remark']").val(data.remarks);
-			
-			
 			}
 		}
 		});
@@ -64,9 +58,7 @@
 		$("#compForm").submit();
 		}
 		
-		
 	//取消表单提交
-	
 	function subCancel(){
 	
 		$("input").val("");

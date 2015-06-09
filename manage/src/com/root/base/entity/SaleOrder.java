@@ -2,11 +2,13 @@ package com.root.base.entity;
 
 import java.util.Date;
 
+import com.manage.entity.CustomerSupplier;
+
 public class SaleOrder {
 
 	private String code;
 	private Date orderDate;
-	private String customerCode;
+	private CustomerSupplier customerCode;
 	private String contActer;
 	private String tel;
 	private String fax;
@@ -34,10 +36,10 @@ public class SaleOrder {
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
-	public String getCustomerCode() {
+	public CustomerSupplier getCustomerCode() {
 		return customerCode;
 	}
-	public void setCustomerCode(String customerCode) {
+	public void setCustomerCode(CustomerSupplier customerCode) {
 		this.customerCode = customerCode;
 	}
 	public String getContActer() {
@@ -130,6 +132,7 @@ public class SaleOrder {
 	public void setAddIp(String addIp) {
 		this.addIp = addIp;
 	}
+	
 	
 	
 }
