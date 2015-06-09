@@ -10,6 +10,7 @@ import com.manage.dao.SalePriceDao;
 import com.manage.entity.CustomerSupplier;
 import com.manage.entity.PageBean;
 import com.manage.entity.SalePrice;
+import com.manage.entity.SalePriceDetail;
 
 public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 
@@ -157,6 +158,29 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 		pageBean.setRecordCount(super.executeTotalCount(sql));
 
 		return pageBean;
+	}
+
+	@Override
+	public PageBean findDetailList(String code,int pageNo,int pageSize) {
+		// TODO Auto-generated method stub
+		String sql="select * from SALEQUOTATION_DETAIL where code=?";
+		ResultSet rs=null;
+		rs=super.executeQueryForPage(sql,pageNo,pageSize);
+		PageBean pageBean=new PageBean();
+		List<SalePriceDetail> detailList=new ArrayList<SalePriceDetail>();
+		SalePriceDetail spd=null;
+		try {
+			while(rs.next()){
+			spd=new SalePriceDetail();
+			spd.setCode(rs.getString("code"));
+			spd.setDeliverymode(rs.getString("deliverymode"));
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

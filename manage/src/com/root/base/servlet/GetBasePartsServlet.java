@@ -1,6 +1,7 @@
 package com.root.base.servlet;
 
 import java.io.IOException;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +83,7 @@ public class GetBasePartsServlet extends HttpServlet {
 		
 		JsonConfig config=new JsonConfig();
 		config.setExcludes(new String[]{"spell","partsgeneralpartsno","partssize","partsweight","partsimg","partsunit","costprice","addDate","adduser","addip","compcode"});
-		config.registerJsonValueProcessor(Date.class,new JSONDateProcessor("yyyyÄêMMÔÂddÈÕ"));
+		config.registerJsonValueProcessor(Date.class,new JSONDateProcessor("yyyyï¿½ï¿½MMï¿½ï¿½ddï¿½ï¿½"));
 		JSONObject jsonObject=new JSONObject();
 		Map attrs=new HashMap();
 		attrs.put("rows",pb.getData());
@@ -93,7 +94,7 @@ public class GetBasePartsServlet extends HttpServlet {
 //		JSONArray j=JSONArray.fromObject(pb);
 //		String data=j.toString();
 		
-//		System.out.println(data);
+		System.out.println(data);
 		response.getWriter().println(data);
 	}
 }

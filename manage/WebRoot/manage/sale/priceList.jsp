@@ -31,25 +31,24 @@ $(function(){
 		}
 	});
    $("#detail").datagrid({
-         url:'',
+        url:'/manage/base/GetBasePartsServlet',
 		title:'明细',
 		idField:'partsNo',
 		singleSelect:false,
 		fitColumns:true,
-		fit:true,
+		//fit:true,
 		pageSize:10,
 		pagination:true,
 		pageList:[2,5,10],
-		toolbar:'#Tool',
 		columns:[[	
-			{checkbox:true},
+			//{checkbox:true},
 			{field:'partsNo',title:'件号',width:70},
 			{field:'partsName',title:'配件名称',width:70},
 			{field:'partsBrand',title:'配件品牌',width:70},
 			{field:'partsModel',title:'配件型号',width:70},
 			{field:'nums',title:'数量',width:70},
 			{field:'price',title:'单价',width:70},
-			{field:'nums*price',title:'金额',width:70},
+			//{field:'nums*price',title:'金额',width:70},
 			{field:'deliverymode',title:'交货期',width:70},
 			{field:'remarks',title:'备注',width:70},
 			{field:'opt',title:'操作',formatter:function(val,row,idx){
@@ -63,28 +62,46 @@ $(function(){
 $('#detail').datagrid('getPager').pagination({
     	displayMsg:'当前显示从第 {from}到第 {to}，共 {total} 条记录'
 	}); 
+  $("#dialog").dialog({});
+  $("#info").datagrid({
+        url:'/manage/cus/ShowCustomerSupplier',
+		idField:'code',
+		singleSelect:false,
+		fitColumns:true,
+		fit:true,
+		pageSize:10,
+		pagination:true,
+		pageList:[2,5,10],
+		toolbar:'#tool',
+		columns:[[	  
+			//{checkbox:true},
+			{field:'code',title:'客户代码',width:70},
+			{field:'csName',title:'客户名称',width:70},
+			{field:'linkMan',title:'联系人员',width:70},
+			{field:'phone',title:'电话',width:70},
+			{field:'fax',title:'传真',width:70},
+			{field:'address',title:'地址',width:70},
+		
+		]],
+   
+   });
 
 });
-
+ 
 	
 	
 	
 	</script>
 
   </head>
-   <script src="/manage/manage/console_ui/js/jquery-1.7.2.min.js"></script>
-		<script src="${ pageContext.request.contextPath }/manage/console_ui/js/jquery.easyui.min.js"></script>
-		<link type="text/css" href="${ pageContext.request.contextPath }/manage/console_ui/themes/default/easyui.css" rel="stylesheet" />
-		<link type="text/css" href="${ pageContext.request.contextPath }/manage/console_ui/themes/icon.css" rel="stylesheet" />
-		 <script type="text/javascript">
-		 </script>
+  
 		 
   <body>
   <form action="">
   <div>
   <table>
   <tr><td>报价编号：</td><td><input type="text" value=""  readonly="readonly"></td>
-    <td>报价日期：</td><td><input type="text" value="" class="easyui-datebox"></td>
+    <td>报价日期：</td><td><input type="text"  value="" class="easyui-datebox"></td>
   </tr>
   <tr><td>客户名称</td><td><input type="text"></td><td>联系人员</td><td><input type="text"></td></tr>
    <tr><td>电话</td><td><input type="text"></td><td>传真</td><td><input type="text"></td></tr>
@@ -101,10 +118,25 @@ $('#detail').datagrid('getPager').pagination({
   <input type="button" value="生成订单" onclick="outOrder()"/>
   <input type="button" value="关闭" onclick="close()"/>
   </form>
-  <form action="">
+  
   <div id="detail">
   
   </div>
+  
+  
+  <div id="tool">
+  <form  method="post">
+  <b>检索条件</b>
+  客户代号：<input type="text" name="code">
+  客户名称：<input type="text" name="name">
+  <input type="button" value="搜索" onclick="search()" />
+  <input type="reset" value="重置" />
   </form>
+ </div>
+ <div id="dialog"  title="请选择客户" style="height:300px ; width:700px;">
+ <div id="info">
+  </div>
+  </div>
+
   </body>
 </html>

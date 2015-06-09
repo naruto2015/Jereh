@@ -44,4 +44,10 @@ public class SPServiceImpl implements SalePriceService {
 		return spd.findList(sp, pageNo, pageSize);
 	}
 
+	@Override
+	public PageBean getDetailList(String code,int pageNo,int pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
