@@ -2,6 +2,10 @@ package manage.service.impl;
 
 import java.util.List;
 
+import com.manage.entity.CustomerSupplier;
+import com.root.base.entity.BaseParts;
+import com.root.base.entity.purchaseInQuery;
+
 import manage.dao.PoDao;
 import manage.dao.impl.PoDaoImpl;
 import manage.entity.PageBean;
@@ -16,7 +20,7 @@ public class PoServiceImpl implements PoService {
 	public PageBean getByConditions(Po po, int pageNo, int pageSize) {
 		// TODO Auto-generated method stub
 		PageBean pb=null;
-		if(po==null){
+		if(po.getCode()==null&&po.getOdate()==null&&po.getDdate()==null&&po.getSupplier().getCsName()==null){
 			pb=poDao.findAll(pageNo, pageSize);
 		}else{
 			pb=poDao.findByConditions(po, pageNo, pageSize);
@@ -46,6 +50,24 @@ public class PoServiceImpl implements PoService {
 	public int delete(String code) {
 		// TODO Auto-generated method stub
 		return poDao.delete(code);
+	}
+
+	@Override
+	public List<CustomerSupplier> getSupplier() {
+		// TODO Auto-generated method stub
+		return poDao.findSuplier();
+	}
+
+	@Override
+	public List<BaseParts> getPart() {
+		// TODO Auto-generated method stub
+		return poDao.findPart();
+	}
+
+	@Override
+	public List<purchaseInQuery> getQueryOrder() {
+		// TODO Auto-generated method stub
+		return poDao.findQueryOrder();
 	}
 
 }

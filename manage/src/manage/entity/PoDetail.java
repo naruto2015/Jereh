@@ -12,6 +12,7 @@ public class PoDetail {
 	private String rkstate;
 	private int rknums;
 	private String remark;
+	private double lastPrice;
 	
 	public PoDetail() {
 		super();
@@ -69,6 +70,12 @@ public class PoDetail {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public double getLastPrice() {
+		return lastPrice;
+	}
+	public void setLastPrice(double lastPrice) {
+		this.lastPrice = lastPrice;
 	}
 	
 }
