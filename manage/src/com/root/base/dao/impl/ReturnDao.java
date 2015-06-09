@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.root.base.dao.BaseDao;
-import com.root.base.dao.IPurchaseReturnDao;
+import com.root.base.dao.IReturnDao;
 import com.root.base.entity.PageBean;
 import com.root.base.entity.PurchaseReturn;
 
-public class PurchaseReturnDao extends BaseDao implements IPurchaseReturnDao {
+public class ReturnDao extends BaseDao implements IReturnDao {
 
 	@Override
 	public PageBean findAll(int pageNo, int pageSize) {
@@ -29,5 +29,11 @@ public class PurchaseReturnDao extends BaseDao implements IPurchaseReturnDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public int delReturn(String code) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
