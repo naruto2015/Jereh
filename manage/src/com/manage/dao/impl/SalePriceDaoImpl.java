@@ -148,6 +148,7 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 				saleprice.setTelphone(rs.getString("telphone"));
 				saleprice.setState(rs.getString("state"));
 				saleprice.setAddusername(rs.getString("addusername"));
+				list.add(saleprice);
 			}
 		} catch (SQLException e) {		
 			e.printStackTrace();
@@ -174,13 +175,22 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 			spd=new SalePriceDetail();
 			spd.setCode(rs.getString("code"));
 			spd.setDeliverymode(rs.getString("deliverymode"));
-			
+			spd.setNums(rs.getInt("nums"));
+			spd.setPcode(rs.getString("pcode"));
+			spd.setPrice(rs.getInt("price"));
+			spd.setRemarks(rs.getString("remarks"));
+			spd.setScode(rs.getString("scode"));
+			detailList.add(spd);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			super.closeAll();
 		}
-		return null;
+		pageBean.setData(detailList);
+		pageBean.setRecordCount(super.executeTotalCount(sql));
+		return pageBean;
 	}
 
 }
