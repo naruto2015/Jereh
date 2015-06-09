@@ -19,7 +19,7 @@ tr{text-align:center;}
 $(function(){
 	$("#orderList").datagrid({
 		title:'订单列表',
-		fit:true,
+		//fit:true,
 		//fitColumns:true,
 		url:'/manage/purchase/GetPurorderServlet',
 		pagination:true,
@@ -32,17 +32,20 @@ $(function(){
 		columns:[[
 			{field:'check',checkbox:true},
 			{field:'code',title:'订单编号',width:100},
-			{field:'odate',title:'订单日期',width:100},
-			{field:'csname',title:'供应商名',width:100},
+			{field:'odate',title:'订单日期',width:65},
+			{field:'supplier',title:'供应商名',formatter:function(val,row,idx){
+				return val.csName;
+			}},
 			{field:'nums',title:'数量',width:100},
 			{field:'amount',title:'金额',width:100},
 			{field:'linkman',title:'联系人',width:100},
 			{field:'tel',title:'联系方式',width:100},
 			{field:'state',title:'审核状态',width:100},
 			{field:'operator',title:'操作员',width:100},
-			{field:'opt',title:'操作',width:100,formatter:function(val,row,idx){
-				var content="<input type='button' value='删除' onclick='delRow("+row.code+")'/>";
+			{field:'opt',title:'操作',width:150,formatter:function(val,row,idx){
+				var content="<input type='button' value='删除' onclick=\"delRow('"+row.code+"')\"/>";
 				content+="<input type='button' value='修改' onclick='update("+idx+")'/>";
+				content+="<input type='button' value='明细'ondblclick='showDetail("+idx+")'/>";
 				return content;
 			}}
 		]]
@@ -67,7 +70,7 @@ $(function(){
 			{field:'money',title:'金额'},
 			{field:'remark',title:'备注'},
 			{field:'opt',title:'操作',formatter:function(val,row,idx){
-				var content="<input type='button' value='删除' onclick='del("+row.code+")'/>";
+				var content="<input type='button' value='删除' onclick=\"del('"+row.code+"')\"/>";
 				return content;
 			}},
 			{field:'lastPrice',title:'上次价格'},
@@ -116,23 +119,7 @@ $(function(){
 			{field:'remarks',title:'备注'}
 		]],
 	});
-	$("#personList").datagrid({
-		//fit:true,
-		fitColumns:true,
-		idField:'id',
-		singleSelect:false,
-		checkOnSelect:false,
-		toolbar:"#persontool",
-		columns:[[	
-			{field:'id',checkbox:true},
-			{field:'personNo',title:'供应商代号'},
-			{field:'personName',title:'供应商名称'},
-			{field:'linkman',title:'联系人员'},
-			{field:'tel',title:'电话'},
-			{field:'zip',title:'传真'},
-			{field:'address',title:'地址'}
-		]],
-	});
+	
 	$("input.easyui-datebox").datebox({
 		formatter: function(date){
 		var y = date.getFullYear();
@@ -222,19 +209,67 @@ function addPart(){
 }
 function choosePerson(){
 	$("#mydg4").dialog("open");
+	$("#personList").datagrid({
+		//fit:true,
+		url:'/manage/cus/ShowCustomerSupplier',
+		fitColumns:true,
+		idField:'id',
+		singleSelect:false,
+		checkOnSelect:false,
+		toolbar:"#persontool",
+		columns:[[	
+			{field:'id',checkbox:true},
+			{field:'code',title:'供应商代号'},
+			{field:'csName',title:'供应商名称'},
+			{field:'linkMan',title:'联系人员'},
+			{field:'phone',title:'电话'},
+			{field:'zip',title:'传真'},
+			{field:'address',title:'地址'}
+		]],
+	});
 }
 function search(){
 	var code=$("input[name='ocode']").val();
 	var beginDate=$("input[name='beginDate']").val();
-	var endTime=$("input[name='endDate']").val();
+	var endDate=$("input[name='endDate']").val();
 	var csname=$("input[name='cname']").val();
-	var date={"code":code,"beginDate":beginDate,"endDate":endDate,"csname":csname};
+	data={"code":code,"beginDate":beginDate,"endDate":endDate,"csname":csname};
 	$("#orderList").datagrid("reload",data);
 }
 function subFrm1(){
 	$("#myFrm").attr("action","/manage/purchase/AddPurorderServlet");
 	$("#myFrm").submit();
-	$("#mydg1").dialog("close");
+	$("#mydg1").dialog("close");  
+}
+function showDetail(idx){
+	var row=$("#orderList").datagrid("getRows")[idx];
+	$("#detailList").css("display:block");
+	$("#detailList").datagrid({
+		title:'单据编号为：'+row.code+'的明细如下所列！',
+		url:'/manage/purchase/GetPoDetailServlet?ocode='+row.code,
+		columns:[[
+			{field:'xcode',title:'询价编号',width:120},
+			{field:'part',title:'配件件号',width:100,formatter:function(val,row,idx){
+				return val.partsNo;
+			}},
+			{field:'part',title:'配件名称',width:100,formatter:function(val,row,idx){
+				return val.partsName;
+			}},
+			{field:'part',title:'配件品牌',width:100,formatter:function(val,row,idx){
+				return val.partsBrand;
+			}},
+			{field:'part',title:'配件型号',width:100,formatter:function(val,row,idx){
+				return val.partsModel;
+			}},
+			{field:'nums',title:'数量',width:100},
+			{field:'part',title:'单价',width:100,formatter:function(val,row,idx){
+				return val.salePrice;
+			}},
+			{field:'price',title:'金额',width:100},
+			{field:'remarks',title:'备注',width:100},
+			{field:'lastPrice',title:'上次价格'}
+		]]
+	});
 }
 </script>
 </head>
@@ -246,17 +281,15 @@ function subFrm1(){
 	    开始日期：<input name="beginDate" type="text" class="easyui-datebox"  /> 
 	    结束日期：<input name="endDate" type="text" class="easyui-datebox"  /> 
 	    供应商名：<input name="cname" type="text" /> 
-    <input type="button" value="搜索" onclick="seach()"/><input type="reset" value="重置" />
+    <input type="button" value="搜索" onclick="search()"/><input type="reset" value="重置" />
     </form>
     <a href="#" class="easyui-linkbutton"  data-options="iconCls:'icon-search'" onclick="showFrm()">查询</a>
     <a href="#" class="easyui-linkbutton"  data-options="iconCls:'icon-add'" onclick="add()">增加</a>
     <a href="#" class="easyui-linkbutton"  data-options="iconCls:'icon-cancel'" onclick="delBatchRow()">批量删除</a>
     <a href="#" class="easyui-linkbutton"  data-options="iconCls:'icon-undo'" onclick="excel()">导出EXCEL</a>
 </div>
-<div id="orderList">
-<table>
-	<tr><td></td><td>001</td><td>2012-05-11</td></tr>
-</table>
+<div id="orderList" style=" height:400px">
+
 </div>
 <div id="mydg1" class="easyui-dialog" title="采购订单" style="margin:5px;">
 	<form id="myFrm" method="post">
@@ -326,6 +359,8 @@ function subFrm1(){
     <div id="personList">
     	<table><tr><td></td><td>001</td></tr></table>
     </div>
+</div>
+<div id="detailList" style=" height:200px; position:fixed; bottom:0px; display:none">
 </div>
 </body>
 </html>

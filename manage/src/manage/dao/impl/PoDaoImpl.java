@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.manage.entity.CustomerSupplier;
 import com.root.base.entity.BaseParts;
+import com.root.base.entity.purchaseInQuery;
 
 import manage.dao.BaseDao;
 import manage.dao.PoDao;
@@ -32,7 +33,7 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 				po=new Po();
 				cs=new CustomerSupplier();
 				po.setCode(rs.getString("code"));
-				po.setOdate(rs.getDate("orderdate"));
+				po.setOdate(rs.getString("orderdate"));
 				cs.setCode(rs.getString("suppliercode"));
 				cs.setCsName(rs.getString("csname"));
 				po.setSupplier(cs);
@@ -40,8 +41,8 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 				po.setTel(rs.getString("telphone"));
 				po.setFax(rs.getString("fax"));
 				po.setTrans(rs.getString("trans"));
-				po.setDdate(rs.getDate("deliverydate"));
-				po.setBusinesser(rs.getString("bussinesser"));
+				po.setDdate(rs.getString("deliverydate"));
+				po.setBusinesser(rs.getString("businesser"));
 				po.setRemark(rs.getString("remarks"));
 				po.setIsshow(rs.getString("isshow"));
 				po.setNums(rs.getInt("nums"));
@@ -53,7 +54,7 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 					state="未审核";
 				}
 				po.setState(state);
-				po.setAdate(rs.getDate("adddate"));
+				po.setAdate(rs.getString("adddate"));
 				po.setOperator(rs.getString("adduser"));
 				po.setOptname(rs.getString("addusername"));
 				po.setOptip(rs.getString("addip"));
@@ -98,13 +99,13 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 			}
 			if(po.getOdate()==null&&po.getDdate()!=null){
 				sql="select * from v_purorder where deliverydate=?";
-				sql1="select count(code) from v_purorder deliverydate=?";
+				sql1="select count(code) from v_purorder where deliverydate=?";
 				rs=super.executeQueryForPage(sql, new Object[]{po.getDdate(),pageNo*pageSize,(pageNo-1)*pageSize});
 				total=super.executeTotalCount(sql1, new Object[]{po.getDdate()});
 			}
 			if(po.getOdate()==null&&po.getDdate()==null&&po.getSupplier().getCsName()!=null){
 				sql="select * from v_purorder where csname=?";
-				sql1="select count(code) from v_purorder csname=?";
+				sql1="select count(code) from v_purorder where csname=?";
 				rs=super.executeQueryForPage(sql, new Object[]{po.getSupplier().getCsName(),pageNo*pageSize,(pageNo-1)*pageSize});
 				total=super.executeTotalCount(sql1, new Object[]{po.getSupplier().getCsName()});
 			}
@@ -118,7 +119,7 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 				po1=new Po();
 				cs=new CustomerSupplier();
 				po1.setCode(rs.getString("code"));
-				po1.setOdate(rs.getDate("orderdate"));
+				po1.setOdate(rs.getString("orderdate"));
 				cs.setCode(rs.getString("suppliercode"));
 				cs.setCsName(rs.getString("csname"));
 				po1.setSupplier(cs);
@@ -126,8 +127,8 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 				po1.setTel(rs.getString("telphone"));
 				po1.setFax(rs.getString("fax"));
 				po1.setTrans(rs.getString("trans"));
-				po1.setDdate(rs.getDate("deliverydate"));
-				po1.setBusinesser(rs.getString("bussinesser"));
+				po1.setDdate(rs.getString("deliverydate"));
+				po1.setBusinesser(rs.getString("businesser"));
 				po1.setRemark(rs.getString("remarks"));
 				po1.setIsshow(rs.getString("isshow"));
 				po1.setNums(rs.getInt("nums"));
@@ -139,7 +140,7 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 					state="未审核";
 				}
 				po1.setState(state);
-				po1.setAdate(rs.getDate("adddate"));
+				po1.setAdate(rs.getString("adddate"));
 				po1.setOperator(rs.getString("adduser"));
 				po1.setOptname(rs.getString("addusername"));
 				po1.setOptip(rs.getString("addip"));
@@ -174,6 +175,8 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 				pd.setNums(rs.getInt("nums"));
 				pd.setRkstate(rs.getString("rkstate"));
 				pd.setRknums(rs.getInt("rknums"));
+				pd.setPrice(rs.getInt("nums")*rs.getInt("saleprice"));
+				pd.setLastPrice(0.00);
 				part.setPartsCode(rs.getString("partscode"));
 				part.setPartsName(rs.getString("partsname"));
 				part.setPartsNo(rs.getString("partsNo"));
@@ -262,6 +265,24 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 			}
 		}
 		return ret;
+	}
+
+	@Override
+	public List<CustomerSupplier> findSuplier() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BaseParts> findPart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<purchaseInQuery> findQueryOrder() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

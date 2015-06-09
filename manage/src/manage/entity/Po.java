@@ -1,25 +1,24 @@
 package manage.entity;
 
-import java.util.Date;
 
 import com.manage.entity.CustomerSupplier;
 
 public class Po {
 	private String code;
-	private Date odate;
+	private String odate;
 	private CustomerSupplier supplier;
 	private String linkman;
 	private String tel;
 	private String fax;
 	private String trans;
-	private Date ddate;
+	private String ddate;
 	private String businesser;
 	private String remark;
 	private String isshow;
 	private int nums;
 	private double amount;
 	private String state;
-	private Date adate;
+	private String adate;
 	private String operator;
 	private String optname;
 	private String optip;
@@ -33,10 +32,10 @@ public class Po {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Date getOdate() {
+	public String getOdate() {
 		return odate;
 	}
-	public void setOdate(Date odate) {
+	public void setOdate(String odate) {
 		this.odate = odate;
 	}
 	public CustomerSupplier getSupplier() {
@@ -69,10 +68,10 @@ public class Po {
 	public void setTrans(String trans) {
 		this.trans = trans;
 	}
-	public Date getDdate() {
+	public String getDdate() {
 		return ddate;
 	}
-	public void setDdate(Date ddate) {
+	public void setDdate(String ddate) {
 		this.ddate = ddate;
 	}
 	public String getBusinesser() {
@@ -111,10 +110,10 @@ public class Po {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public Date getAdate() {
+	public String getAdate() {
 		return adate;
 	}
-	public void setAdate(Date adate) {
+	public void setAdate(String adate) {
 		this.adate = adate;
 	}
 	public String getOperator() {
