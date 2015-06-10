@@ -53,7 +53,7 @@ $(function(){
 		}
 	});
 
-
+//订单列表
 	$("#list").datagrid({
 		url:'/manage/sale/GetSaleOrderServlet',
 		toolbar:'#bt',
@@ -79,17 +79,27 @@ $(function(){
 			{field:'businesser',title:'操纵员',width:80},
 			{field:'opt',title:'操作',width:80,
 				 formatter:function(val,row,idx){
-				var optBt="<input type='button' value='修改' onclick=\"modify('"+row.code+"')\"/>";
-					optBt+="<input type='button' value=\"删除\" onclick=\"delRow('"+row.code+"')\" />";
-					return optBt;
-				}}
-		]]
-			
+				 var optBt="<input type='button' value='修改' onclick=\"modify('"+row.code+"')\"/>";
+					 optBt+="<input type='button' value=\"删除\" onclick=\"delRow('"+row.code+"')\" />";
+					 return optBt;
+				}}]]
 		});
-
-
-//订单明细框
-	$("#orderShow").dialog({
+		
+		$("#mydg4").dialog("close");
+		
+		$("#list").datagrid({onDblClickRow:function(idx,data){
+		showOrderDetail(idx,data);
+		}});
+		
+		//客户选择
+		$("#personList").datagrid({onDblClickRow:function(idx,data){
+		$("input[name='clientName']").val(data.csName);
+		$("input[name='contacter']").val(data.linkMan);
+		$("input[name='tel']").val(data.phone);
+		$("input[name='fax']").val(data.fax);
+		}});
+		
+		$("#orderShow").dialog({
 		title:"单据编号为xxxx的明细如下列",
 		width:1000,
 		height:200,
@@ -97,22 +107,9 @@ $(function(){
 		modal:true,
 		cache:false,
 		});
-
-//订单datagrid	
-	$("#orderDetail").datagrid({	
-		columns:[[
-			{field:'quotedPriceNo',title:'报价单号',width:80},
-			{field:'partNumber',title:'件号',width:80},
-			{field:'fittingName',title:'配件名称',width:80},
-			{field:'fittingBrand',title:'配件品牌',width:80},
-			{field:'fittingType',title:'配件型号',width:80},
-			{field:'nums',title:'数量',width:60},
-			{field:'price',title:'单价',width:60},
-			{field:'money',title:'金额',width:60},
-			{field:'remarks',title:'备注',width:170}
-		]]
-		});	
 		$("#orderShow").dialog("close");
+	
+	
 
 //增加订单datagrid
 	$("#addOrderList").datagrid({	
@@ -135,21 +132,28 @@ $(function(){
 		   ]]
 		});
 	
-	$("#partInfo").dialog("close");
-	});
+	})
 	
-//按条件查找订单
-	function findOrderBy(){
-		var code=$("input[name='orderCode_s']").val();
-		var startDate=$("input[name='startDate_s']").val();
-		var endDate=$("input[name='endDate_s']").val();
-		$.ajax({
-		async:false,
-		url:'/manage/sale/GetSaleOrderServlet',
-		data:{code:code,startDate:startDate,endDate:endDate},
-		success:function(data){
-		  }
-		})
+	
+	
+	//订单明细框
+	function showOrderDetail(idx,data){
+		$("#orderShow").dialog("open");
+		alert(data.code);
+		$("#orderDetail").datagrid({	
+		url:'/manage/sale/GetSaleOrderByCodeServlet?code='+data.code,
+		columns:[[
+			{field:'quotedPriceNo',title:'报价单号',width:80},
+			{field:'partNumber',title:'件号',width:80},
+			{field:'fittingName',title:'配件名称',width:80},
+			{field:'fittingBrand',title:'配件品牌',width:80},
+			{field:'fittingType',title:'配件型号',width:80},
+			{field:'num',title:'数量',width:40},
+			{field:'price',title:'单价',width:40},
+			{field:'money',title:'金额',width:40},
+			{field:'remarks',title:'备注',width:100},
+		   ]]
+		});
 	}
 	
 
@@ -228,11 +232,40 @@ function delRows(){
 //取消修改
 	function remodorder(){
 		$("#modOrder input").val("");
+		$("#add").dialog("close");
 	}
+	
+//客户信息
+function choosePerson(){
+	$("#mydg4").dialog("open");
+	$("#personList").datagrid({
+		//fit:true,
+		url:'/manage/cus/ShowCustomerSupplier',
+		fitColumns:true,
+		idField:'id',
+		singleSelect:false,
+		checkOnSelect:false,
+		toolbar:"#persontool",
+		
+		columns:[[	
+			{field:'id',checkbox:true},
+			{field:'code',title:'供应商代号'},
+			{field:'csName',title:'供应商名称'},
+			{field:'linkMan',title:'联系人员'},
+			{field:'phone',title:'电话'},
+			{field:'fax',title:'传真'},
+			{field:'address',title:'地址'}
+		]],
+	});
+}
+//实现双击添加到输入框中
+
+	
+	
 //配件datagrid
 function partDataGrid(){
 	$("#partInfo").datagrid({
-		url:'/manage/base/GetBasePartsServlet',
+		url:'/manage/sale/GetStockPartsServlet',
 		toolbar:'#partBt',
 		idField:'code',
 		fit:true,
@@ -243,21 +276,21 @@ function partDataGrid(){
 	    checkOnSelect:false,
 		columns:[[
 			{field:'box',checkbox:'checked'},
-			{field:'partsCode',title:'件号',width:80},
-			{field:'partsName',title:'配件名称',width:80},
-			{field:'partsBrand',title:'配件品牌',width:80},
-			{field:'partsModel',title:'配件型号',width:80},
-			{field:'warehouse',title:'所属仓库',width:80},
-			{field:'salePrice',title:'销售单价',width:40},
+			{field:'pcode',title:'件号',width:80,formatter:function(val,row,idx){return val.partsNo;}},
+			{field:'partsName',title:'配件名称',width:80,formatter:function(val,row,idx){return row.pcode.partsName;}},
+			{field:'partsBrand',title:'配件品牌',width:80,formatter:function(val,row,idx){return row.pcode.partsBrand;}},
+			{field:'partsModel',title:'配件型号',width:80,formatter:function(val,row,idx){return row.pcode.partsModel;}},
+			{field:'hcode',title:'所属仓库',width:80},
+			{field:'salePrice',title:'销售单价',width:40,formatter:function(val,row,idx){return row.pcode.salePrice;}},
 			{field:'nums',title:'库存数量',width:40},
-			{field:'lastprice',title:'上次价格',width:60},
-			{field:'remarks',title:'备注',width:100},
+			{field:'lastPrice',title:'上次价格',width:60},
+			{field:'remarks',title:'备注',width:100,formatter:function(val,row,idx){return row.pcode.remarks;}},
 			]],
 	});
 }
 //选择配件
 	function addPart(){
-	partDataGrid();
+		partDataGrid();
 		$("#partdialog").dialog({
 		 	title:'选择配件',
 			width:1000,
@@ -266,17 +299,46 @@ function partDataGrid(){
 			modal:true,
 			cache:false,
 		});
+		getwareHouse();
 	}
-//搜索
+//获取所属仓库
+	function getwareHouse(){
+		$.ajax({
+		url:'/manage/sale/GetStockPartsServlet',
+		success:function(data){
+			for(var i=0;i<data.rows.length;i++){
+			var option=$("<option>").appendTo($("select[name='hCode']"));
+			option.html(data.rows[i].hcode);
+			}
+		}
+		});
+	}
+//搜索选择配件
+	function  partSearch(){
+		var partNo=$("#partBt input[name='partNoSerach']").val();
+		var partName=$("#partBt input[name='partNameSearch']").val();
+		var hcode=$("select[name='hCode']").val();
+		alert(partNo);
+		data={partsNo:partNo,partsName:partName,hCode:hcode};
+		$("#partInfo").datagrid("reload",data);
+	}
+//重置搜索选择配件
+	function repartSearch(){
+		var partNo=$("#partBt input[name='partNoSerach']").val("");
+		var partName=$("#partBt input[name='partNameSearch']").val("");
+		var hcode=$(".optionwarehouse").attr({"selected":"selected"});
+	}
+	
+	
+	
+	
+//查询订单
 	function searchBt(){
 		var a=$("input[name='orderCode_s']").val();
 		var b=$("input[name='startDate_s']").val();
 		var c=$("input[name='endDate_s']").val();
-		$.ajax({
-		url:'/manage/sale/GetSaleOrderServlet',
-		data:({orderCode:a,startDate:b,endDate:c}),
-		success:function(){}
-		})
+		data=({orderCode:a,startDate:b,endDate:c});
+		$("#list").datagrid("reload",data);
 	}	
 	
 //重置
@@ -300,7 +362,6 @@ function partDataGrid(){
 	function saveOrder(){
 		
 		$("#addOrder").attr({action:"/manage/sale/AddSaleOrderServlet"});
-		
 		$("#addOrder").submit(); 
 	};
 	//新增加
@@ -313,6 +374,7 @@ function partDataGrid(){
 		var idx=$("#addOrderList").datagrid("getRowIndex");
 		$("#addOrderList").datagrid("deleteRow",idx);
 		}
+		
 </script>
 <style>
 #addcss{ margin:20px;}
@@ -338,7 +400,7 @@ tr{text-align:center}
     <button onclick="searchBt()">搜索</button>
     <button onclick="resetBt()">重置</button>
 	<hr />
-	<a href="#" class="easyui-linkbutton " iconCls="icon-search" onclick="findOrderBy()">查询</a>
+	<a href="#" class="easyui-linkbutton " iconCls="icon-search" onclick="searchBt()">查询</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="addOrder()">增加</a>
 	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="delRows()">批量删除</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-large-chart" onclick="outExcel">导出Excel</a>   
@@ -369,7 +431,7 @@ tr{text-align:center}
      </tr>
      <tr>
     	<td class="clientName"><i class="i">*</i>客户名称</td>
-        <td><input class="easyui-validatebox" type="text" name="clientName" ></input></td>
+        <td><input class="easyui-validatebox" type="text" name="clientName" ondblclick="choosePerson()" ></input></td>
         <td class="linkman"><i class="i">*</i>联系人员</td> 
         <td><input class="easyui-validatebox" type="text" name="contacter"></input></td> 
       </tr>
@@ -414,14 +476,26 @@ tr{text-align:center}
     </div>
    </div>
    
-   
+<!-- 客户信息 -->
+<div id="mydg4" class="easyui-dialog" title="请选择供应商（温馨提示您：双击某行选中数据）" style="width:700px;">
+    <div id="persontool">
+        <form id="find" method="post">
+          	  检索条件:供应商代号：<input type="text" name="personNo"/>
+          	  供应商名称：<input type="text" name="personName"/>
+            <input type="button" value="搜索" onclick="search()"/><input type="reset" value="重置"/>
+        </form>
+    </div>
+    <div id="personList">
+    	
+    </div>
+</div>  
 <!-- 配件信息 -->
 <div id="partBt">
-	检索条件:<a>件号:<input name="partCodeSerach"/></a>
+	检索条件:<a>件号:<input name="partNoSerach"/></a>
 		  <a>名称:<input name="partNameSearch"/></a>
-		     仓库:<select><option>--选择仓库--</option></select>
-		  <button>搜索</button>
-		  <button>重置</button>
+		     仓库:<select name="hCode"><option class="optionwarehouse">--选择仓库--</option></select>
+		  <button onclick="partSearch()">搜索</button>
+		  <button onclick="repartSearch()">重置</button>
 </div>
 	<div id="partdialog">
 	  <div id="partInfo">
