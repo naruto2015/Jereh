@@ -7,14 +7,14 @@ import com.manage.entity.CustomerSupplier;
 public class SaleOrder {
 
 	private String code;
-	private Date orderDate;
+	private String orderDate;
 	private CustomerSupplier customerCode;
 	private String contActer;
 	private String tel;
 	private String fax;
 	private String trans;
 	private String businesser;
-	private Date deliveryDate;
+	private String deliveryDate;
 	private String remarks;
 	private String isShow;
 	private int nums;
@@ -24,16 +24,18 @@ public class SaleOrder {
 	private String addUser;
 	private String addUserName;
 	private String addIp;
+	
+	
 	public String getCode() {
 		return code;
 	}
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 	public CustomerSupplier getCustomerCode() {
@@ -72,10 +74,10 @@ public class SaleOrder {
 	public void setBusinesser(String businesser) {
 		this.businesser = businesser;
 	}
-	public Date getDeliveryDate() {
+	public String getDeliveryDate() {
 		return deliveryDate;
 	}
-	public void setDeliveryDate(Date deliveryDate) {
+	public void setDeliveryDate(String deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
 	public String getRemarks() {

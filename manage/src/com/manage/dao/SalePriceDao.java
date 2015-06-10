@@ -11,4 +11,5 @@ public interface SalePriceDao {
 	 public int delSalePrice(String code);
 	 public SalePrice findByCode(String code);
 	 public PageBean findList(SalePrice sp,int pageNo,int pageSize);
+	 public PageBean findDetailList(String code,int pageNo,int pageSize);
 }

@@ -6,7 +6,7 @@ import com.root.base.entity.SaleOrder;
 public interface SaleOrderService {
 
 	//显示订单列表
-	public PageBean getSaleOrderBy(int pageNo,int pageSize);
+	public PageBean getSaleOrderBy(int pageNo,int pageSize,SaleOrder saleOrder);
 	
 	//获得订单by 订单号
 	public SaleOrder getSaleOrderByCode(String code);

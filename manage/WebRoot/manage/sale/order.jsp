@@ -134,30 +134,7 @@ $(function(){
 						}}
 		   ]]
 		});
-	//配件信息
-	$("#partInfo").datagrid({
-		url:'/manage/base/GetBasePartsServlet',
-		toolbar:'#partBt',
-		idField:'code',
-		fit:true,
-		fitColumns:true,
-		pagination:true, 
-		pageList:[2,5,10],
-		singleSelect:false,
-	    checkOnSelect:false,
-		columns:[[
-			{field:'box',checkbox:'checked'},
-			{field:'partsCode',title:'件号',width:80},
-			{field:'partsName',title:'配件名称',width:80},
-			{field:'partsBrand',title:'配件品牌',width:80},
-			{field:'partsModel',title:'配件型号',width:80},
-			{field:'warehouse',title:'所属仓库',width:80},
-			{field:'salePrice',title:'销售单价',width:40},
-			{field:'nums',title:'库存数量',width:40},
-			{field:'lastprice',title:'上次价格',width:60},
-			{field:'remarks',title:'备注',width:100},
-			]],
-	});
+	
 	$("#partInfo").dialog("close");
 	});
 	
@@ -252,8 +229,35 @@ function delRows(){
 	function remodorder(){
 		$("#modOrder input").val("");
 	}
+//配件datagrid
+function partDataGrid(){
+	$("#partInfo").datagrid({
+		url:'/manage/base/GetBasePartsServlet',
+		toolbar:'#partBt',
+		idField:'code',
+		fit:true,
+		fitColumns:true,
+		pagination:true, 
+		pageList:[2,5,10],
+		singleSelect:false,
+	    checkOnSelect:false,
+		columns:[[
+			{field:'box',checkbox:'checked'},
+			{field:'partsCode',title:'件号',width:80},
+			{field:'partsName',title:'配件名称',width:80},
+			{field:'partsBrand',title:'配件品牌',width:80},
+			{field:'partsModel',title:'配件型号',width:80},
+			{field:'warehouse',title:'所属仓库',width:80},
+			{field:'salePrice',title:'销售单价',width:40},
+			{field:'nums',title:'库存数量',width:40},
+			{field:'lastprice',title:'上次价格',width:60},
+			{field:'remarks',title:'备注',width:100},
+			]],
+	});
+}
 //选择配件
 	function addPart(){
+	partDataGrid();
 		$("#partdialog").dialog({
 		 	title:'选择配件',
 			width:1000,
@@ -269,7 +273,7 @@ function delRows(){
 		var b=$("input[name='startDate_s']").val();
 		var c=$("input[name='endDate_s']").val();
 		$.ajax({
-		url:'',
+		url:'/manage/sale/GetSaleOrderServlet',
 		data:({orderCode:a,startDate:b,endDate:c}),
 		success:function(){}
 		})

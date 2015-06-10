@@ -1,6 +1,7 @@
 package com.manage.dao;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
 
 public class BaseDao {
 	private Connection conn=null;
@@ -123,7 +125,7 @@ public class BaseDao {
 			pageSql+=sql+") x where rownum<=?) where r>?";
 		return this.executeQuery(pageSql, params);	
 	}
-	//·µ»ØÐÂ²úÉúµÄid
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Â²ï¿½ï¿½ï¿½ï¿½id
 	public int executeQueryForNewId(String sql){
 		
 		ResultSet rs=this.executeQuery(sql);
@@ -141,11 +143,11 @@ public class BaseDao {
 		return newId;
 		
 	}
-	//¼ÆËã¼ÇÂ¼Êý
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½
 	public int executeTotalCount(String sql){
 		return executeTotalCount(sql,null);
 	}
-	//¼ÆËã¼ÇÂ¼Êý
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½
 	public int executeTotalCount(String sql,Object[] params){
 		
 		String sqlc="select count(*) count from ("+sql+")";

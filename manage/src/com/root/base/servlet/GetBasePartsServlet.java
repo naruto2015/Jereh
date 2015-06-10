@@ -1,6 +1,7 @@
 package com.root.base.servlet;
 
 import java.io.IOException;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,7 +72,7 @@ public class GetBasePartsServlet extends HttpServlet {
 		}
 		PageBean pb=null;
 		BaseParts part=new BaseParts();
-		part.setPartsNo(partsno); 
+		part.setPartsNo(partsno);
 		part.setPartsName(partsname);
 		part.setPartsCategory(partscategory);
 		if(partsno!=null||partsname!=null||partscategory!=null){
@@ -82,7 +83,7 @@ public class GetBasePartsServlet extends HttpServlet {
 		
 		JsonConfig config=new JsonConfig();
 		config.setExcludes(new String[]{"spell","partsgeneralpartsno","partssize","partsweight","partsimg","partsunit","costprice","addDate","adduser","addip","compcode"});
-		config.registerJsonValueProcessor(Date.class,new JSONDateProcessor("yyyy年MM月dd日"));
+		config.registerJsonValueProcessor(Date.class,new JSONDateProcessor("yyyy��MM��dd��"));
 		JSONObject jsonObject=new JSONObject();
 		Map attrs=new HashMap();
 		attrs.put("rows",pb.getData());

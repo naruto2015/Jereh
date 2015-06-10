@@ -10,5 +10,6 @@ public interface SalePriceService {
  public int deleteSalePrice(String code);
  public SalePrice searchByCode(String code);
  public PageBean getList(SalePrice sp,int pageNo,int pageSize);
+ public PageBean getDetailList(String code,int pageNo,int paggeSize);
  
 }

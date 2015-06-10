@@ -18,9 +18,9 @@ public class SaleOrderServiceImpl implements SaleOrderService {
 	
 	//显示订单列表
 	@Override
-	public PageBean getSaleOrderBy(int pageNo,int pageSize) {
+	public PageBean getSaleOrderBy(int pageNo,int pageSize,SaleOrder saleOrder) {
 		// TODO Auto-generated method stub
-		return sod.findSaleOrder(pageNo, pageSize);
+		return sod.findSaleOrder(pageNo, pageSize,saleOrder);
 	}
 
 	//获得订单by订单号

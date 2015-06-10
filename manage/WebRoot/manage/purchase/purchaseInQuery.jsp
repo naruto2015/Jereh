@@ -108,9 +108,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </table>
     </form>
       <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="showQuery()">查询</a>|  
-      <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true " onclick=addBase()>增加</a> | 
-      <a id="btn3" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true " onclick=delBatchRow()>批量删除</a> | 
-      <a id="btn4" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true " onclick=ExporterExcel()>导出EXCEL</a>  |
+      <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true " onclick="addBase()">增加</a> | 
+      <a id="btn3" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true " onclick="delBatchRow()">批量删除</a> | 
+      <a id="btn4" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true " onclick="ExporterExcel()">导出EXCEL</a>  |
   </div>
   <div id="purchase"></div>
      

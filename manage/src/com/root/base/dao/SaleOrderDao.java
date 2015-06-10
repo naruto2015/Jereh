@@ -8,7 +8,7 @@ import com.root.base.entity.SaleOrder;
 public interface SaleOrderDao {
 
 	//获取订单列表
-	public PageBean findSaleOrder(int pageNo,int pageSize);
+	public PageBean findSaleOrder(int pageNo,int pageSizee,SaleOrder order);
 	
 	//获取订单by订单号
 	public SaleOrder findSaleOrderByCode(String code);

@@ -1,6 +1,6 @@
 package com.root.base.dao.impl;
 
-import java.sql.ResultSet;
+import java.sql.ResultSet; 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +22,30 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 	private CustomerSupplierDao csd=new CustomerSupplierDaoImpl();
 	//获取订单列表
 	@Override
-	public PageBean findSaleOrder(int pageNo,int pageSize) {  
+	public PageBean findSaleOrder(int pageNo,int pageSize,SaleOrder saleOrder) {  
 		// TODO Auto-generated method stub
-		String sql="select * from saleorder order by orderdate desc";
-		rs=super.executeQueryForPage(sql, pageNo, pageSize);
+		String sql="select * from saleorder where 1=1 ";
+		String sql2="select count(*) from saleorder where 1=1";
+		
+		if(saleOrder.getCode()!=null && !saleOrder.getCode().equals("")){
+			sql+=" and coce="+"'"+saleOrder.getCode()+"'";
+			sql2+=" and coce="+"'"+saleOrder.getCode()+"'";
+		}
+		if(saleOrder.getOrderDate()!=null && !saleOrder.getOrderDate().equals("")){
+			sql+=" and orderdate="+"'"+saleOrder.getOrderDate()+"'";
+			sql2+=" and orderdate="+"'"+saleOrder.getOrderDate()+"'";
+		}
+		if(saleOrder.getDeliveryDate()!=null && !saleOrder.getDeliveryDate().equals("")){
+			sql+=" and deliverydate="+"'"+saleOrder.getDeliveryDate()+"'";
+			sql2+=" and deliverydate="+"'"+saleOrder.getDeliveryDate()+"'";
+		}
+		int recount=super.executeTotalCount(sql2); 
+		pageBean.setRecordCount(recount);
+		
 		List<SaleOrder> list=new ArrayList<SaleOrder>();
 		SaleOrder order=null;
 		CustomerSupplier supplier=null;
+		rs=super.executeQueryForPage(sql,new Object[]{pageNo*pageSize,(pageNo-1)*pageSize});
 		try {
 			while(rs.next()){
 			order=new SaleOrder();
@@ -41,8 +58,8 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 			order.setFax(rs.getString("fax"));
 			order.setTrans(rs.getString("trans"));
 			order.setBusinesser(rs.getString("businesser"));
-			order.setOrderDate(rs.getDate("orderdate"));
-			order.setDeliveryDate(rs.getDate("deliverydate"));
+			order.setOrderDate(rs.getString("orderdate"));
+			order.setDeliveryDate(rs.getString("deliverydate"));
 			order.setRemarks(rs.getString("remarks"));
 			order.setIsShow(rs.getString("isshow"));
 			order.setNums(rs.getInt("nums"));
@@ -62,9 +79,7 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 			super.closeAll();
 		}
 		
-		String sql2="select count(*) from saleorder where 1=1";
-		int recount=super.executeTotalCount(sql2);
-		pageBean.setRecordCount(recount);
+		
 		return pageBean;
 	}
 	
@@ -87,8 +102,8 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 				order.setFax(rs.getString("fax"));
 				order.setTrans(rs.getString("trans"));
 				order.setBusinesser(rs.getString("businesser"));
-				//order.setOrderDate(rs.getDate("orderdate"));
-				//order.setDeliveryDate(rs.getDate("deliverydate"));
+				order.setOrderDate(rs.getString("orderdate"));
+				order.setDeliveryDate(rs.getString("deliverydate"));
 				order.setRemarks(rs.getString("remarks"));
 				order.setIsShow(rs.getString("isshow"));
 				order.setNums(rs.getInt("nums"));
@@ -111,9 +126,9 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 										+ "businesser, deliverydate, remarks)"
 										+ "values(?,?,?,?,?,?,?,?,?,?)";
 		
-		return super.executeUpdate(sql,new Object[]{order.getCode(),dateUtil.toStringDatesql(order.getOrderDate()),
+		return super.executeUpdate(sql,new Object[]{order.getCode(),order.getOrderDate(),
 				order.getCustomerCode(),order.getContActer(),order.getTel(),order.getFax(),order.getTrans(),order.getBusinesser(),
-										dateUtil.toStringDatesql(order.getDeliveryDate()),order.getRemarks()});
+										order.getDeliveryDate(),order.getRemarks()});
 	}
 
 	
