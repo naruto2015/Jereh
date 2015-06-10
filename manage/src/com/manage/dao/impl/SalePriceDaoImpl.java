@@ -25,7 +25,7 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 		SalePrice sp=null;
 		
 		try {
-			while(rs.next()){
+		while(rs.next()){
 			sp=new SalePrice();
 			sp.setCode(rs.getString("code"));
 			sp.setSqdate(rs.getDate("sqdate"));
@@ -62,8 +62,7 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 		int ret=super.executeUpdate(sql,new Object[]{saleprice.getCode(),saleprice.getCustomerCode(),
 				saleprice.getContacter(),saleprice.getTelphone(),saleprice.getFax(),saleprice.getNums(),saleprice.getNumsPrice(),
 				saleprice.getIsShow(),saleprice.getState(),saleprice.getRemarks(),saleprice.getAdduser(),
-				saleprice.getAddusername(),saleprice.getAddip(),saleprice.getCompcode()});
-		
+				saleprice.getAddusername(),saleprice.getAddip(),saleprice.getCompcode()});	
 		
 		return ret;
 	}
@@ -116,11 +115,12 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 	@Override
 	public PageBean findList(SalePrice sp, int pageNo, int pageSize) {
 		// TODO Auto-generated method stub
-		String sql="select * from SALEQUOTATION where 1=1";
+		String sql="select b.*,a.csname from BASECUSTOMERSUPPLIER a join SALEQUOTATION  b on a.code= b.customercode  where 1=1";
 		if(sp.getCode()!=null&&!sp.getCode().equals("")){
 			sql+=" and code="+"'"+sp.getCode()+"'";
 		}
-		if(sp.getCs().getCsName()!=null&&!sp.getCs().getCsName().equals("")){
+		if(sp.getCs()!=null&&!sp.getCs().equals("")){
+			if(sp.getCs().getCsName()!=null&&sp.getCs().getCsName().equals(""))
 			sql+=" and csName="+"'"+sp.getCs().getCsName()+"'";
 		}
 		if(sp.getSqdate()!=null&&!sp.getSqdate().equals("")){

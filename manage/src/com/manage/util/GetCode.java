@@ -11,5 +11,11 @@ public String get(){
    String code="KGS"+time;
    return code;
 	}
-
+public String getPriceCode(){
+	 Date date=new Date();
+	   SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddhhmmss");
+	   String time=sdf.format(date);
+	   String priceCode="MTBJ"+time;
+	return priceCode;
+}
 }

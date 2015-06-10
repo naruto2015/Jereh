@@ -29,8 +29,9 @@ $("input.easyui-datebox").datebox({
 				return new Date();
 		}
 	});
+	 
   $("#sale").datagrid({
-	    url:'',
+	    url:'/manage/sale/getSalePriceServlet',
 		title:'报价单据管理',
 		idField:'code',
 		singleSelect:false,
@@ -41,10 +42,10 @@ $("input.easyui-datebox").datebox({
 		pageList:[2,5,10],
 		toolbar:'#Tool',
 		columns:[[	
-			{checkbox:true},
+			//{checkbox:true},
 			{field:'code',title:'报价单号',width:70},
 			{field:'sqdate',title:'报价日期',width:70},
-			{field:'compcode',title:'客户名称',width:70},
+			{field:'csName',title:'客户名称',width:70},
 			{field:'nums',title:'数量',width:70},
 			{field:'numsPrice',title:'总货值',width:70},
 			{field:'contacter',title:'联系人',width:70},
@@ -64,9 +65,19 @@ $("input.easyui-datebox").datebox({
 	}); 
    
    });
+   function change(code){
+     window.location.href="/manage/sale/updateSalePriceServlet?code="+code;
+   }
 function add(){
-   	window.location.href="/manage/sal/addSalePriceServlet";
+   	window.location.href="/manage/sale/addSalePriceServlet";
 }
+  function search(){
+   var code=$("input[name='code']").val();
+    var csName=$("input[name='pname']").val();
+    var sqdate=$("input[name='startdate']").val();
+  //var addDate=$("input[name='enddate']").val();
+    $("#sale").datagrid("reload",{'code':code,'csName':csName,'sqdate':sqdate});
+ }
 
 </script>
   </head>
