@@ -5,7 +5,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    
+    <style>
+    #table{
+     border:1px blue solid;
+     background-color: #08FE08;
+    }
+    </style>
     
     <title>My JSP 'priceList.jsp' starting page</title>
   <script src="${ pageContext.request.contextPath }/manage/console_ui/js/jquery.min.js" language="javascript"></script>
@@ -86,6 +91,14 @@ $('#detail').datagrid('getPager').pagination({
 		]],
    
    });
+   $("#info").datagrid({onDblClickRow:function(idx,data){
+   alert("tt");
+   $("input[name='cuscode']").val(data.code);
+		$("input[name='csname']").val(data.csName);
+		$("input[name='contacter']").val(data.linkMan);
+		$("input[name='telphone']").val(data.phone);
+		$("input[name='fax']").val(data.fax);
+		}});
 
 });
 function add(){
@@ -110,8 +123,11 @@ function add(){
   <body>
 	<form action="/manage/sale/doSalePriceServlet" method="post" id="slist">
 	<input type="hidden" name="opt" />
+	<input type="hidden" value="${list.get(0).getCustomerCode() }" name="cuscode" />
+	<input type="hidden" value="${list.get(0).getState() }" name="state" />
+	<input type="hidden" value="${list.get(0).getAddusername() }" name="addusername" />
 		<div>
-			<table>
+			<table id="table">
 				<tr>
 					
 					<td>报价编号：</td>
@@ -142,6 +158,7 @@ function add(){
 					<td>备注</td>
 					<td colspan=4><input type="text" value="${list.get(0).getRemarks() }" name="remarks">
 					</td>
+					
 				</tr>
 			</table>
 
@@ -171,6 +188,7 @@ function add(){
 	<div id="dialog"  title="请选择客户" style="height:300px ; width:700px;">
  <div id="info">
   </div>
+   
   </div>
 
   </body>

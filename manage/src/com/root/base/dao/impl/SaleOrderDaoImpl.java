@@ -197,7 +197,7 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 				part.setPartsBrand(rs.getString("partsbrand"));
 				part.setPartsModel(rs.getString("partsmodel"));
 				part.setRemarks(rs.getString("remarks"));
-				part.setSalePrice(rs.getFloat("price"));
+				part.setSalePrice(rs.getString("price"));
 				
 				stock.setPcode(part);
 				stock.setNums(rs.getInt("nums"));
