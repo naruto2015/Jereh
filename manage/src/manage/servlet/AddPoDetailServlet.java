@@ -8,17 +8,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
 import manage.entity.PoDetail;
 import manage.service.PoService;
 import manage.service.impl.PoServiceImpl;
 
-public class GetPoDetailServlet extends HttpServlet {
+public class AddPoDetailServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetPoDetailServlet() {
+	public AddPoDetailServlet() {
 		super();
 	}
 
@@ -29,16 +28,17 @@ public class GetPoDetailServlet extends HttpServlet {
 		super.destroy(); // Just puts "destroy" string in log
 		// Put your code here
 	}
+
 	private PoService ps=new PoServiceImpl();
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/json; charset=utf-8");
-		String code=request.getParameter("ocode");
-		List<PoDetail> pdList=ps.getDetailByCode(code);
-		JSONArray arr=JSONArray.fromObject(pdList);
-		String data=arr.toString();
-		response.getWriter().println(data);
+		request.setCharacterEncoding("utf-8");
+		String ocode=request.getParameter("ocode");
+		String xcode=request.getParameter("xcode");
+		List<PoDetail> pdList=ps.getDetailByXcode(xcode, ocode);
+		ps.addDetial(pdList);
+		
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

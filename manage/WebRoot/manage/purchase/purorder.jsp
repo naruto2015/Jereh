@@ -45,79 +45,15 @@ $(function(){
 			{field:'opt',title:'操作',width:150,formatter:function(val,row,idx){
 				var content="<input type='button' value='删除' onclick=\"delRow('"+row.code+"')\"/>";
 				content+="<input type='button' value='修改' onclick='update("+idx+")'/>";
-				content+="<input type='button' value='明细'ondblclick='showDetail("+idx+")'/>";
 				return content;
 			}}
 		]]
 	});
+	$("#orderList").datagrid({onDblClickRow:function(idx,data){
+		showDetail(idx);
+	}});
 	$("#orderList").datagrid("getPager").pagination({
-    	displayMsg:'当前显示从第 {from}到第 {to}，共 {total} 条记录'
-	}); 
-	$("#searchList").datagrid({
-		//fit:true,
-		fitColumns:true,
-		isField:'code',
-		singleSelect:false,
-		checkOnSelect:false,
-		columns:[[
-			{field:'code',title:'询价编号'},
-			{field:'partNo',title:'配件件号'},
-			{field:'partName',title:'配件名称'},
-			{field:'partBrand',title:'配件品牌'},
-			{field:'partModel',title:'配件型号'},
-			{field:'count',title:'数量'},
-			{field:'price',title:'单价'},
-			{field:'money',title:'金额'},
-			{field:'remark',title:'备注'},
-			{field:'opt',title:'操作',formatter:function(val,row,idx){
-				var content="<input type='button' value='删除' onclick=\"del('"+row.code+"')\"/>";
-				return content;
-			}},
-			{field:'lastPrice',title:'上次价格'},
-		]]
-	});
-	/*$("#searchList").datagrid("appendRow",{
-		name:'合计'
-	});*/
-	$("#purchase").datagrid({            
-		 //fit:true,
-		 fitColumns:true,
-		 idField:'id',
-		 toolbar:"#head",
-		 singleSelect:false,
-		 checkOnSelect:false,
-		 columns:[[
-			   {field:'id',checkbox:'checked',formatter:function(idx){
-				  return idx;
-			   }},
-			   {field:'code',title:'询价编号'},
-			   {field:'adddate',title:'询价日期'},
-			   {field:'supplierCode',title:'供应商名'},
-			   {field:'nums',title:'数量'},
-			   {field:'numsPrice',title:'金额'},
-			   {field:'noNums',title:'未选数量'},
-			   {field:'noPrice',title:'未选金额'},
-			   {field:'state',title:'审核状态'}
-		 ]]
-	});
-	$("#partsList").datagrid({
-		//fit:true,
-		fitColumns:true,
-		idField:'id',
-		singleSelect:false,
-		checkOnSelect:false,
-		toolbar:"#partstool",
-		columns:[[	
-			{field:'id',checkbox:true},
-			{field:'partsNo',title:'配件件号'},
-			{field:'partsName',title:'配件名称'},
-			{field:'partsBrand',title:'配件品牌'},
-			{field:'partsModel',title:'配件型号'},
-			{field:'salePrice',title:'单价'},
-			{field:'person',title:'供应商'},
-			{field:'lastPrice',title:'上次价格'},
-			{field:'remarks',title:'备注'}
-		]],
+    	displayMsg:'当前显示从第 {from}条到第 {to}条，共 {total}条记录'
 	});
 	
 	$("input.easyui-datebox").datebox({
@@ -156,11 +92,12 @@ function getCurDate(){
 	var hour=date.getHours();
 	var minute=date.getMinutes();
 	var second=date.getSeconds();
-	return "MTCJ"+year+month+day+hour+minute+second; 
+	return "MTCG"+year+month+day+hour+minute+second; 
 }
 function add(){
 	$("#mydg1").dialog("open");
-	$("input[name='code1']").val(getCurDate());
+	var ocode=$("input[name='code1']").val(getCurDate());
+	show2(ocode);
 }
 function delBatchRow(){
 	var rows=$("#orderList").datagrid("getSelections");
@@ -172,46 +109,140 @@ function delBatchRow(){
 			if(r){
 				var codes="";
 				for(var i=0;i<rows.length;i++){
-					codes+=rows[i].code+" ";
-					var rowidx=$("#orderList").datagrid("getRowIndex",rows[i]);
-					$("#orderList").datagrid("deleteRow",rowidx);
-					//后台通信
-					
+						if(i!=rows.length-1){
+							codes+=rows[i].code+",";
+						}else{
+							codes+=rows[i].code;
+						}		
 				}	
 				//$.messager.alert("信息提示",codes);
+				$.ajax({
+					url:'/manage/purchase/DeleteBatchPoServlet',
+					data:{"codes":codes},
+					type:'post',
+					success:function(data){
+						if(data==1){
+							$.messager.alert("信息提示","删除成功！");
+							$("#orderList").datagrid("reload");
+							$("#detailList").datagrid("reload");
+						}else{
+							$.messager.alert("信息提示","删除失败！");
+						}
+					}
+				});
 			}
 		});
 	}
 }
-function delRow(code){
-	//alert(code);
-	var rowidx=$("#orderList").datagrid("getRowIndex",code);
-	//alert(rowidx);
-	$("#orderList").datagrid("deleteRow",rowidx);
-}
 function update(idx){
 	$("#mydg1").dialog("open");
+	var row=$("#orderList").datagrid("getRows")[idx];
+	$("input[name='remarks']").val(row.remark);
+	var ocode=$("input[name='code1']").val(row.code);
+	show2(ocode);
 }
-function del(code){
-	//alert(code);
-	var rowidx=$("#searchList").datagrid("getRowIndex",code);
-	//alert(rowidx);
-	$("#searchList").datagrid("deleteRow",rowidx);
+function subFrm2(){
+	$("#myFrm").attr("action","/manage/purchase/UpdatePurorderServlet");
+	$("#myFrm").submit();
+	$("#mydg1").dialog("close"); 
+}
+function delRow(ocode){
+	//alert(ocode);
+	$.messager.confirm("删除提醒","确认要删除记录吗？",function(r){
+		if(r){
+			$.ajax({
+				url:'/manage/purchase/DeletePoServlet?ocode='+ocode,
+				success:function(data){
+					if(data==1){
+						$.messager.alert("信息提示","删除成功！");
+						$("#orderList").datagrid("reload");
+						$("#detailList").datagrid("reload");
+					}else{
+						$.messager.alert("信息提示","删除失败！");
+					}
+				}
+			});
+		}
+	});
 }
 function show1(){
 	$("#mydg2").dialog("open");
+	$("#purchase").datagrid({            
+		 //fit:true,
+		 url:'/manage/purchase/GetPurInQueryServlet',
+		 fitColumns:true,
+		 idField:'id',
+		 toolbar:"#head",
+		 singleSelect:false,
+		 checkOnSelect:false,
+		 columns:[[
+			   {field:'id',checkbox:true},
+			   {field:'code',title:'询价编号'},
+			   {field:'addDate',title:'询价日期'},
+			   {field:'supplier',title:'供应商名',formatter:function(val,row,idx){
+				return val.csName;
+			   }},
+			   {field:'nums',title:'数量'},
+			   {field:'numsPrice',title:'金额'},
+			   {field:'num',title:'未选数量'},
+			   {field:'numPrice',title:'未选金额'},
+			   {field:'state',title:'审核状态'}
+		 ]]
+	});
+	
+	$("#purchase").datagrid({onDblClickRow:function(idx,data){
+		$("input[name='nums1']").val(data.nums);
+		$("input[name='numsPrice1']").val(data.numsPrice);
+		var ocode=$("input[name='code1']").val();
+		var xcode=data.code;
+		$.ajax({
+			url:'/manage/purchase/AddPoDetailServlet',
+			data:{"ocode":ocode,"xcode":xcode}
+		});
+		$("#searchList").datagrid("reload",ocode);
+	}});
 }
 function clo(){
 	$("#mydg1").dialog("close");
 }
 function addPart(){
 	$("#mydg3").dialog("open");
+	$("#partsList").datagrid({
+		//fit:true,
+		url:'/manage/purchase/GetPartsServlet',
+		fitColumns:true,
+		idField:'id',
+		singleSelect:false,
+		checkOnSelect:false,
+		toolbar:"#partstool",
+		columns:[[	
+			{field:'id',checkbox:true},
+			{field:'partsCode',hidden:true},
+			{field:'partsNo',title:'配件件号'},
+			{field:'partsName',title:'配件名称'},
+			{field:'partsBrand',title:'配件品牌'},
+			{field:'partsModel',title:'配件型号'},
+			{field:'salePrice',title:'单价'},
+			{field:'compcode',title:'供应商'},
+			{field:'lastPrice',title:'上次价格'},
+			{field:'remarks',title:'备注'}
+		]],
+	});
+	$("#partsList").datagrid({onDblClickRow:function(idx,data){
+		var pcode=data.partsCode;
+		var ocode=$("input[name='code1']").val();
+		$.ajax({
+			url:'/manage/purchase/AddPartsServlet',
+			data:{"ocode":ocode,"pcode":pcode,"nums":"5"}
+		});
+	}});
+	$("#searchList").datagrid("reload",ocode);
 }
 function choosePerson(){
 	$("#mydg4").dialog("open");
 	$("#personList").datagrid({
 		//fit:true,
-		url:'/manage/cus/ShowCustomerSupplier',
+		url:'/manage/purchase/GetSupplierServlet',
 		fitColumns:true,
 		idField:'id',
 		singleSelect:false,
@@ -223,10 +254,18 @@ function choosePerson(){
 			{field:'csName',title:'供应商名称'},
 			{field:'linkMan',title:'联系人员'},
 			{field:'phone',title:'电话'},
-			{field:'zip',title:'传真'},
+			{field:'fax',title:'传真'},
 			{field:'address',title:'地址'}
 		]],
 	});
+	$("#personList").datagrid({onDblClickRow:function(idx,data){
+		$("input[name='csname']").val(data.csName);
+		$("input[name='supplierCode']").val(data.code);
+		$("input[name='linkman']").val(data.linkMan);
+		$("input[name='tel']").val(data.phone);
+		$("input[name='zip']").val(data.fax);
+		$("#mydg4").dialog("close");
+	}});
 }
 function search(){
 	var code=$("input[name='ocode']").val();
@@ -250,26 +289,102 @@ function showDetail(idx){
 		columns:[[
 			{field:'xcode',title:'询价编号',width:120},
 			{field:'part',title:'配件件号',width:100,formatter:function(val,row,idx){
-				return val.partsNo;
+				  return val.partsNo;
+			   }},
+			{field:'partsName',title:'配件名称',width:100,formatter:function(val,row,idx){
+				  return row.part.partsName;
 			}},
-			{field:'part',title:'配件名称',width:100,formatter:function(val,row,idx){
-				return val.partsName;
+			{field:'partsBrand',title:'配件品牌',width:100,formatter:function(val,row,idx){
+				  return row.part.partsBrand;
 			}},
-			{field:'part',title:'配件品牌',width:100,formatter:function(val,row,idx){
-				return val.partsBrand;
-			}},
-			{field:'part',title:'配件型号',width:100,formatter:function(val,row,idx){
-				return val.partsModel;
+			{field:'partsModel',title:'配件型号',width:100,formatter:function(val,row,idx){
+				  return row.part.partsModel;
 			}},
 			{field:'nums',title:'数量',width:100},
-			{field:'part',title:'单价',width:100,formatter:function(val,row,idx){
-				return val.salePrice;
+			{field:'salePrice',title:'单价',width:100,formatter:function(val,row,idx){
+				  return row.part.salePrice;
 			}},
 			{field:'price',title:'金额',width:100},
-			{field:'remarks',title:'备注',width:100},
+			{field:'remark',title:'备注',width:100},
 			{field:'lastPrice',title:'上次价格'}
 		]]
 	});
+}
+function show2(ocode){
+	$("#searchList").datagrid({
+		//fit:true,
+		url:'/manage/purchase/GetPoDetailServlet?ocode='+ocode,
+		fitColumns:true,
+		isField:'xcode',
+		singleSelect:false,
+		checkOnSelect:false,
+		columns:[[
+			{field:'dcode',hidden:true},
+			{field:'xcode',title:'询价编号'},
+			{field:'part',title:'配件件号',formatter:function(val,row,idx){
+				  return val.partsNo;
+			}},
+			{field:'partsName',title:'配件名称',formatter:function(val,row,idx){
+				  return row.part.partsName;
+			}},
+			{field:'partsBrand',title:'配件品牌',formatter:function(val,row,idx){
+				  return row.part.partsBrand;
+			}},
+			{field:'partsModel',title:'配件型号',formatter:function(val,row,idx){
+				  return row.part.partsModel;
+			}},
+			{field:'nums',title:'数量'},
+			{field:'salePrice',title:'单价',formatter:function(val,row,idx){
+				  return row.part.salePrice;
+			}},
+			{field:'price',title:'金额'},
+			{field:'remark',title:'备注'},
+			{field:'opt',title:'操作',formatter:function(val,row,idx){
+				var content="<input type='button' value='删除' onclick=\"del('"+row.dcode+"')\"/>";
+				return content;
+			}},
+			{field:'lastPrice',title:'上次价格'},
+		]]
+	});
+}
+function del(dcode){
+	$.ajax({
+		url:'/manage/purchase/DeletePoDetailServlet?dcode='+dcode,
+		success:function(data){
+			if(data==1){
+				$("#searchList").datagrid("reload");
+			}
+		}
+	});
+}
+function check(){
+	$("input[name='state']").val("1");
+}
+function print(){
+	var ocode=$("select[name='code1']").val();
+	var odate=$("input[name='odate']").val();
+	var csname=$("input[name='csname']").val();
+	var linkman=$("input[name='linkman']").val();
+	var tel=$("input[name='tel']").val();
+	var fax=$("input[name='zip']").val();
+	var trans=$("input[name='way']").val();
+	var ddate=$("input[name='ddate']").val();
+	var person=$("input[name='person']").val();
+	var remark=$("input[name='remarks']").val();
+	$.ajax({
+		url:'/manage/util/PrintPurOrderServlet',
+		data:{"ocode":ocode,"odate":odate,"csname":csname,"linkman":linkman,"tel":tel,"fax":fax,
+			"trans":trans,"ddate":ddate,"person":person,"remark":remark,"ftl":"Purorder.ftl"},
+		type:'post',
+		datatype:'json',
+		success:function(data){
+			if(data.fileName!=null){
+				window.location.href="/manage/cus/downloadServlet?fileName="+data.fileName;
+				//$.messager.alert("信息提示","打印完成！");
+			}
+		}
+	});
+	
 }
 </script>
 </head>
@@ -288,11 +403,16 @@ function showDetail(idx){
     <a href="#" class="easyui-linkbutton"  data-options="iconCls:'icon-cancel'" onclick="delBatchRow()">批量删除</a>
     <a href="#" class="easyui-linkbutton"  data-options="iconCls:'icon-undo'" onclick="excel()">导出EXCEL</a>
 </div>
-<div id="orderList" style=" height:400px">
+<div id="orderList" style=" height:300px">
 
 </div>
 <div id="mydg1" class="easyui-dialog" title="采购订单" style="margin:5px;">
 	<form id="myFrm" method="post">
+	<input type="hidden" name="supplierCode">
+	<input type="hidden" name="operator" value="bimt">
+	<input type="hidden" name="nums1" >
+	<input type="hidden" name="numsPrice1" >
+	<input type="hidden" name="state" value="0">
     <table id="t">
     <tr><td>订单编号:</td><td><input type="text" name="code1" /></td>
     <td>订单日期:</td><td><input type="text" name="odate" class="easyui-datebox" /></td></tr>
@@ -320,7 +440,6 @@ function showDetail(idx){
     <input type="button" value="关闭" onclick="clo()" />
     </form>
     <div id="searchList">
-    <table><tr><td>001</td></tr></table>
     </div>
 </div>
 <div id="mydg2" class="easyui-dialog" title="请选择询价单" style="width:850px;">
@@ -333,7 +452,6 @@ function showDetail(idx){
       </form>
     </div>
     <div id="purchase">
-     <table><tr><td></td><td>001</td></tr></table>
     </div>
 </div>
 <div id="mydg3" class="easyui-dialog" title="请选择配件（温馨提示您：双击某行选中数据）" style="width:600px;">
@@ -345,7 +463,7 @@ function showDetail(idx){
         </form>
     </div>
     <div id="partsList">
-    	<table><tr><td></td><td>001</td></tr></table>
+    	
     </div>
 </div>
 <div id="mydg4" class="easyui-dialog" title="请选择供应商（温馨提示您：双击某行选中数据）" style="width:700px;">
@@ -357,7 +475,7 @@ function showDetail(idx){
         </form>
     </div>
     <div id="personList">
-    	<table><tr><td></td><td>001</td></tr></table>
+    	
     </div>
 </div>
 <div id="detailList" style=" height:200px; position:fixed; bottom:0px; display:none">

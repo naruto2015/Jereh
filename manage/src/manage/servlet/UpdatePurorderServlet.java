@@ -7,18 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.manage.entity.CustomerSupplier;
-
 import manage.entity.Po;
 import manage.service.PoService;
 import manage.service.impl.PoServiceImpl;
 
-public class AddPurorderServlet extends HttpServlet {
+import com.manage.entity.CustomerSupplier;
+
+public class UpdatePurorderServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public AddPurorderServlet() {
+	public UpdatePurorderServlet() {
 		super();
 	}
 
@@ -30,14 +30,10 @@ public class AddPurorderServlet extends HttpServlet {
 		// Put your code here
 	}
 
+	private PoService ps=new PoServiceImpl();
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		this.doPost(request, response);
-	}
-	private PoService ps=new PoServiceImpl();
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String code=request.getParameter("code1");
 		String supplierCode=request.getParameter("supplierCode");
@@ -75,9 +71,16 @@ public class AddPurorderServlet extends HttpServlet {
 		po.setAmount(Integer.parseInt(numsPrice));
 		po.setOperator(operator);
 		po.setState(state);
-		ps.addOrder(po);
+		ps.update(po);
 		response.sendRedirect("../manage/purchase/purorder.jsp");
 
+	}
+
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		this.doGet(request, response);
 	}
 
 	/**

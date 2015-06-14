@@ -1,24 +1,21 @@
 package manage.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import manage.entity.PoDetail;
 import manage.service.PoService;
 import manage.service.impl.PoServiceImpl;
 
-public class GetPoDetailServlet extends HttpServlet {
+public class DeletePoDetailServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetPoDetailServlet() {
+	public DeletePoDetailServlet() {
 		super();
 	}
 
@@ -34,11 +31,9 @@ public class GetPoDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/json; charset=utf-8");
-		String code=request.getParameter("ocode");
-		List<PoDetail> pdList=ps.getDetailByCode(code);
-		JSONArray arr=JSONArray.fromObject(pdList);
-		String data=arr.toString();
-		response.getWriter().println(data);
+		String dcode=request.getParameter("dcode");
+		int ret=ps.delDetail(dcode);
+		response.getWriter().println(ret);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

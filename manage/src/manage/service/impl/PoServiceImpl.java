@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.manage.entity.CustomerSupplier;
 import com.root.base.entity.BaseParts;
-import com.root.base.entity.purchaseInQuery;
 
 import manage.dao.PoDao;
 import manage.dao.impl.PoDaoImpl;
 import manage.entity.PageBean;
 import manage.entity.Po;
 import manage.entity.PoDetail;
+import manage.entity.PurInQuery;
 import manage.service.PoService;
 
 public class PoServiceImpl implements PoService {
@@ -35,15 +35,21 @@ public class PoServiceImpl implements PoService {
 	}
 
 	@Override
-	public int add(Po po, List<PoDetail> pdList) {
+	public int addOrder(Po po) {
 		// TODO Auto-generated method stub
-		return poDao.insert(po, pdList);
+		return poDao.insertOrder(po);
 	}
 
 	@Override
-	public int update(Po po, List<PoDetail> pdList) {
+	public int addDetial(List<PoDetail> pdList) {
 		// TODO Auto-generated method stub
-		return poDao.update(po, pdList);
+		return poDao.insertDetail(pdList);
+	}
+
+	@Override
+	public int update(Po po) {
+		// TODO Auto-generated method stub
+		return poDao.update(po);
 	}
 
 	@Override
@@ -65,9 +71,22 @@ public class PoServiceImpl implements PoService {
 	}
 
 	@Override
-	public List<purchaseInQuery> getQueryOrder() {
+	public List<PurInQuery> getQueryOrder() {
 		// TODO Auto-generated method stub
 		return poDao.findQueryOrder();
 	}
+
+	@Override
+	public List<PoDetail> getDetailByXcode(String xcode, String ocode) {
+		// TODO Auto-generated method stub
+		return poDao.findByXcode(xcode, ocode);
+	}
+
+	@Override
+	public int delDetail(String dcode) {
+		// TODO Auto-generated method stub
+		return poDao.deleteDetail(dcode);
+	}
+
 
 }

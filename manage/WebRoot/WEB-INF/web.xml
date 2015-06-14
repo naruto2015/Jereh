@@ -398,6 +398,99 @@
     <servlet-name>GetSaleOrderByCodeServlet</servlet-name>
     <servlet-class>com.root.base.servlet.GetSaleOrderByCodeServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPurorderServlet</servlet-name>
+    <servlet-class>manage.servlet.GetPurorderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetSupplierServlet</servlet-name>
+    <servlet-class>manage.servlet.GetSupplierServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPartsServlet</servlet-name>
+    <servlet-class>manage.servlet.GetPartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPoDetailServlet</servlet-name>
+    <servlet-class>manage.servlet.GetPoDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPurInQueryServlet</servlet-name>
+    <servlet-class>manage.servlet.GetPurInQueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPoDetailServlet</servlet-name>
+    <servlet-class>manage.servlet.AddPoDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeletePoDetailServlet</servlet-name>
+    <servlet-class>manage.servlet.DeletePoDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeletePoServlet</servlet-name>
+    <servlet-class>manage.servlet.DeletePoServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeleteBatchPoServlet</servlet-name>
+    <servlet-class>manage.servlet.DeleteBatchPoServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPartsServlet</servlet-name>
+    <servlet-class>manage.servlet.AddPartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPurorderServlet</servlet-name>
+    <servlet-class>manage.servlet.AddPurorderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdatePurorderServlet</servlet-name>
+    <servlet-class>manage.servlet.UpdatePurorderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>PrintPurOrderServlet</servlet-name>
+    <servlet-class>manage.servlet.PrintPurOrderServlet</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -466,6 +559,59 @@
     <servlet-name>GetSaleOrderByCodeServlet</servlet-name>
     <url-pattern>/sale/GetSaleOrderByCodeServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPurorderServlet</servlet-name>
+    <url-pattern>/purchase/GetPurorderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetSupplierServlet</servlet-name>
+    <url-pattern>/purchase/GetSupplierServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPartsServlet</servlet-name>
+    <url-pattern>/purchase/GetPartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPoDetailServlet</servlet-name>
+    <url-pattern>/purchase/GetPoDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPurInQueryServlet</servlet-name>
+    <url-pattern>/purchase/GetPurInQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPoDetailServlet</servlet-name>
+    <url-pattern>/purchase/AddPoDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePoDetailServlet</servlet-name>
+    <url-pattern>/purchase/DeletePoDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePoServlet</servlet-name>
+    <url-pattern>/purchase/DeletePoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteBatchPoServlet</servlet-name>
+    <url-pattern>/purchase/DeleteBatchPoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPartsServlet</servlet-name>
+    <url-pattern>/purchase/AddPartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPurorderServlet</servlet-name>
+    <url-pattern>/purchase/AddPurorderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdatePurorderServlet</servlet-name>
+    <url-pattern>/purchase/UpdatePurorderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PrintPurOrderServlet</servlet-name>
+    <url-pattern>/purchase/PrintPurOrderServlet</url-pattern>
+  </servlet-mapping>
+ 
  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

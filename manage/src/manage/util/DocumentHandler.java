@@ -21,25 +21,21 @@ public class DocumentHandler {
 		conf=new Configuration();
 		conf.setDefaultEncoding("utf-8");
 	}
-	public void createDoc(Map<String,Object> dataMap,String fileName){
-		//����ģ��װ�÷�����·��
-		//ģ�����temp����
+	public void createDoc(Map<String,Object> dataMap,String fileName,String ftl){
 		conf.setClassForTemplateLoading(this.getClass(),"/template");
 		Template t=null;
-		//Ϊ test.ftlװ��ģ��
 		try {
-			t=conf.getTemplate("tem.ftl");
+			t=conf.getTemplate(ftl);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//����ĵ�·�������
 		File outFile=new File(fileName);
 		Writer out =null;
 		FileOutputStream fos=null;
 		try {
 			fos=new FileOutputStream(outFile);
-			OutputStreamWriter osw=new OutputStreamWriter(fos,"UTF-8");//����ط������ı��벻�ɻ�ȱ
+			OutputStreamWriter osw=new OutputStreamWriter(fos,"UTF-8");
 			out=new BufferedWriter(osw);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -48,7 +44,6 @@ public class DocumentHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//����ı�
 		try {
 			t.process(dataMap, out);
 			out.close();

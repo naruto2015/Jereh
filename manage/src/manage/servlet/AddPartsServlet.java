@@ -1,6 +1,7 @@
 package manage.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,17 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
+import com.root.base.entity.BaseParts;
+
 import manage.entity.PoDetail;
 import manage.service.PoService;
 import manage.service.impl.PoServiceImpl;
 
-public class GetPoDetailServlet extends HttpServlet {
+public class AddPartsServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetPoDetailServlet() {
+	public AddPartsServlet() {
 		super();
 	}
 
@@ -33,14 +35,23 @@ public class GetPoDetailServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/json; charset=utf-8");
-		String code=request.getParameter("ocode");
-		List<PoDetail> pdList=ps.getDetailByCode(code);
-		JSONArray arr=JSONArray.fromObject(pdList);
-		String data=arr.toString();
-		response.getWriter().println(data);
+		request.setCharacterEncoding("utf-8");
+		String ocode=request.getParameter("ocode");
+		String pcode=request.getParameter("pcode");
+		String nums=request.getParameter("nums");
+		List<PoDetail> pdList=new ArrayList<PoDetail>();
+		PoDetail pd=new PoDetail();
+		BaseParts bp=new BaseParts();
+		pd.setOcode(ocode);
+		bp.setPartsCode(pcode);
+		pd.setPart(bp);
+		pd.setNums(Integer.parseInt(nums));
+		pdList.add(pd);
+		ps.addDetial(pdList);
+
 	}
 
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

@@ -9,16 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
-import manage.entity.PoDetail;
+
+import com.root.base.entity.BaseParts;
+
 import manage.service.PoService;
 import manage.service.impl.PoServiceImpl;
 
-public class GetPoDetailServlet extends HttpServlet {
+public class GetPartsServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetPoDetailServlet() {
+	public GetPartsServlet() {
 		super();
 	}
 
@@ -34,9 +36,8 @@ public class GetPoDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/json; charset=utf-8");
-		String code=request.getParameter("ocode");
-		List<PoDetail> pdList=ps.getDetailByCode(code);
-		JSONArray arr=JSONArray.fromObject(pdList);
+		List<BaseParts> bpList=ps.getPart();
+		JSONArray arr=JSONArray.fromObject(bpList);
 		String data=arr.toString();
 		response.getWriter().println(data);
 	}
@@ -47,11 +48,6 @@ public class GetPoDetailServlet extends HttpServlet {
 		this.doGet(request, response);
 	}
 
-	/**
-	 * Initialization of the servlet. <br>
-	 *
-	 * @throws ServletException if an error occurs
-	 */
 	public void init() throws ServletException {
 		// Put your code here
 	}

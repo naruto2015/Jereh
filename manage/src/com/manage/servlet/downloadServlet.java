@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +25,7 @@ public class downloadServlet extends HttpServlet {
 		
 		 //获得请求文件名  
         String fileName = request.getParameter("fileName");  
-        System.out.println(fileName);  
+        //System.out.println(fileName);  
           
         //设置文件MIME类型  
         response.setContentType(getServletContext().getMimeType(fileName)); 

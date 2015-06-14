@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
-import manage.entity.PoDetail;
+import manage.entity.PurInQuery;
 import manage.service.PoService;
 import manage.service.impl.PoServiceImpl;
 
-public class GetPoDetailServlet extends HttpServlet {
+public class GetPurInQueryServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetPoDetailServlet() {
+	public GetPurInQueryServlet() {
 		super();
 	}
 
@@ -34,10 +34,10 @@ public class GetPoDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/json; charset=utf-8");
-		String code=request.getParameter("ocode");
-		List<PoDetail> pdList=ps.getDetailByCode(code);
-		JSONArray arr=JSONArray.fromObject(pdList);
+		List<PurInQuery> piList=ps.getQueryOrder();
+		JSONArray arr=JSONArray.fromObject(piList);
 		String data=arr.toString();
+		//System.out.println(data);
 		response.getWriter().println(data);
 	}
 

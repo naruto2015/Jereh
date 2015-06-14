@@ -9,13 +9,13 @@ import java.util.List;
 
 import com.manage.entity.CustomerSupplier;
 import com.root.base.entity.BaseParts;
-import com.root.base.entity.purchaseInQuery;
 
 import manage.dao.BaseDao;
 import manage.dao.PoDao;
 import manage.entity.PageBean;
 import manage.entity.Po;
 import manage.entity.PoDetail;
+import manage.entity.PurInQuery;
 
 public class PoDaoImpl extends BaseDao implements PoDao {
 
@@ -60,11 +60,10 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 				po.setOptip(rs.getString("addip"));
 				poList.add(po);
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			super.closeAll();
 		}
 		sql="select count(code) from v_purorder";
 		pb.setData(poList);
@@ -196,7 +195,35 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 	}
 
 	@Override
-	public int insert(Po po,List<PoDetail> pdList) {
+	public List<PoDetail> findByXcode(String xcode,String ocode) {
+		// TODO Auto-generated method stub
+		String sql="select * from purchaseinquery_detail where xcode=?";
+		ResultSet rs=super.executeQuery(sql, xcode);
+		List<PoDetail> pdList=new ArrayList<PoDetail>();
+		PoDetail pd=null;
+		BaseParts part=null;
+		try {
+			while(rs.next()){
+				pd=new PoDetail();
+				part=new BaseParts();
+				pd.setOcode(ocode);
+				pd.setXcode(rs.getString("xcode"));
+				pd.setNums(rs.getInt("nums"));
+				part.setPartsCode(rs.getString("pcode"));
+				part.setSalePrice(rs.getString("price"));
+				pd.setPart(part);
+				pdList.add(pd);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			super.closeAll();
+		}
+		return pdList;
+	}
+	@Override
+	public int insertOrder(Po po) {
 		// TODO Auto-generated method stub
 		int ret=0;
 		String sql="insert into purchaseorder(code,suppliercode,contacter,telphone,fax,trans,deliverydate,"
@@ -205,19 +232,24 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 		ret=super.executeUpdate(sql, new Object[]{po.getCode(),po.getSupplier().getCode(),po.getLinkman(),
 				po.getTel(),po.getFax(),po.getTrans(),po.getDdate(),po.getBusinesser(),po.getRemark(),
 				po.getNums(),po.getAmount(),po.getState(),po.getOperator()});
-		if(ret==1){
-			for(PoDetail pd:pdList){
-				sql="insert into purchaseorder_detail(dcode,ocode,xcode,pcode,nums,price,rkstate,rknums,remarks) "
-						+ "values(seq_dcode.nextval,?,?,?,?,?,?,?,?)";
-				ret=super.executeUpdate(sql, new Object[]{pd.getOcode(),pd.getXcode(),pd.getPart().getPartsCode(),
-						pd.getNums(),pd.getPart().getSalePrice(),pd.getRkstate(),pd.getRknums(),pd.getRemark()});
-			}
+		return ret;
+	}
+
+	@Override
+	public int insertDetail(List<PoDetail> pdList) {
+		// TODO Auto-generated method stub
+		int ret=0;
+		for(PoDetail pd:pdList){
+			String sql="insert into purchaseorder_detail(dcode,ocode,xcode,pcode,nums,price,rkstate,rknums,remarks) "
+					+ "values(seq_dcode.nextval,?,?,?,?,?,?,?,?)";
+			ret=super.executeUpdate(sql, new Object[]{pd.getOcode(),pd.getXcode(),pd.getPart().getPartsCode(),
+					pd.getNums(),pd.getPart().getSalePrice(),pd.getRkstate(),pd.getRknums(),pd.getRemark()});
 		}
 		return ret;
 	}
 
 	@Override
-	public int update(Po po,List<PoDetail> pdList) {
+	public int update(Po po) {
 		// TODO Auto-generated method stub
 		int ret=0;
 		String sql="update purchaseorder set suppliercode=?,contacter=?,telphone=?,fax=?,trans=?,deliverydate=?,"
@@ -225,16 +257,6 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 		ret=super.executeUpdate(sql, new Object[]{po.getSupplier().getCode(),po.getLinkman(),
 				po.getTel(),po.getFax(),po.getTrans(),po.getDdate(),po.getBusinesser(),po.getRemark(),
 				po.getNums(),po.getAmount(),po.getState(),po.getOperator(),po.getCode()});
-		if(ret==1){
-			sql="delete from purchaseorder_detail where ocode=?";
-			super.executeUpdate(sql, new Object[]{po.getCode()});
-			for(PoDetail pd:pdList){
-				sql="insert into purchaseorder_detail(dcode,ocode,xcode,pcode,nums,price,rkstate,rknums,remarks) "
-						+ "values(seq_dcode.nextval,?,?,?,?,?,?,?,?)";
-				ret=super.executeUpdate(sql, new Object[]{pd.getOcode(),pd.getXcode(),pd.getPart().getPartsCode(),
-						pd.getNums(),pd.getPart().getSalePrice(),pd.getRkstate(),pd.getRknums(),pd.getRemark()});
-			}
-		}
 		return ret;
 	}
 
@@ -242,8 +264,8 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 	public int delete(String code) {
 		// TODO Auto-generated method stub
 		int ret=0;
-		String sql1="delete from purchaseorder where code="+code;
-		String sql2="delete from purchaseorder_detail where ocode="+code;
+		String sql1="delete from purchaseorder where code="+"'"+code+"'";
+		String sql2="delete from purchaseorder_detail where ocode="+"'"+code+"'";
 		Connection conn=super.getConnection();
 		Statement state=null;
 		try {
@@ -270,19 +292,119 @@ public class PoDaoImpl extends BaseDao implements PoDao {
 	@Override
 	public List<CustomerSupplier> findSuplier() {
 		// TODO Auto-generated method stub
-		return null;
+		String sql="select * from basecustomersupplier";
+		ResultSet rs=super.executeQuery(sql);
+		List<CustomerSupplier> csList=new ArrayList<CustomerSupplier>();
+		CustomerSupplier cs=null;
+		try {
+			while(rs.next()){
+			cs=new CustomerSupplier();
+			cs.setCode(rs.getString("code"));
+			cs.setCsName(rs.getString("csname"));
+			cs.setType(rs.getString("categorycode"));
+			cs.setLinkMan(rs.getString("contacter"));
+			cs.setPhone(rs.getString("telephone"));
+			cs.setFax(rs.getString("fax"));
+			cs.setAddress(rs.getString("address"));
+			cs.setIsShow(rs.getString("isshow"));
+			csList.add(cs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			super.closeAll();
+		}
+		return csList;
 	}
 
 	@Override
 	public List<BaseParts> findPart() {
 		// TODO Auto-generated method stub
-		return null;
+		String sql="select * from baseparts";
+		ResultSet rs=super.executeQuery(sql);
+		List<BaseParts> partsList=new ArrayList<BaseParts>();
+		BaseParts part=null;
+		try {
+			while(rs.next()){
+				part=new BaseParts();
+				part.setPartsCode(rs.getString("partscode"));
+				part.setPartsName(rs.getString("partsname"));
+				part.setSpell(rs.getString("spell"));
+				part.setPartsCategory(rs.getString("partscategory"));
+				part.setPartsBrand(rs.getString("partsbrand"));
+				part.setPartsNo(rs.getString("partsno"));
+				part.setPartsGeneralPartsNo(rs.getString("partsgeneralpartsno"));
+				part.setPartsModel(rs.getString("partsmodel"));
+				part.setPartsModelOld(rs.getString("partsmodelold"));
+				part.setPartsSize(rs.getString("partssize"));
+				part.setPartsWeight(rs.getString("partsweight"));
+				part.setPartsImg(rs.getString("partsimg"));
+				part.setPartsUnit(rs.getString("partsunit"));
+				part.setSalePrice(rs.getString("saleprice"));
+				part.setCostPrice(rs.getInt("costprice"));
+				part.setIsShow(rs.getString("isshow"));
+				part.setRemarks(rs.getString("remarks"));
+				part.setAddUser(rs.getString("adduser"));
+				part.setAddUserName(rs.getString("addusername"));
+				part.setAddIp(rs.getString("addip"));
+				part.setCompcode(rs.getString("compcode"));
+				partsList.add(part);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			super.closeAll();
+		}
+		return partsList;
 	}
 
 	@Override
-	public List<purchaseInQuery> findQueryOrder() {
+	public List<PurInQuery> findQueryOrder() {
 		// TODO Auto-generated method stub
-		return null;
+		String sql="select * from v_purinquery";
+		ResultSet rs=super.executeQuery(sql);
+		List<PurInQuery> piList=new ArrayList<PurInQuery>();
+		PurInQuery pi=null;
+		CustomerSupplier cs=null;
+		try {
+			while(rs.next()){
+				pi=new PurInQuery();
+				cs=new CustomerSupplier();
+				pi.setCode(rs.getString("code"));
+				pi.setAddDate(rs.getString("adddate"));
+				cs.setCsName(rs.getString("csname"));
+				pi.setSupplier(cs);
+				pi.setNums(rs.getInt("nums"));
+				pi.setNumsPrice(rs.getInt("numsprice"));
+				pi.setNum(2);
+				pi.setNumPrice(440);
+				String state=rs.getString("state");
+				if(state.equals("1")){
+					state="完成";
+				}else{
+					state="未完成";
+				}
+				pi.setState(state);
+				pi.setRemarks(rs.getString("remarks"));
+				piList.add(pi);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			super.closeAll();
+		}
+		return piList;
 	}
+
+	@Override
+	public int deleteDetail(String dcode) {
+		// TODO Auto-generated method stub
+		String sql="delete from purchaseorder_detail where dcode=?";
+		return super.executeUpdate(sql, new Object[]{dcode});
+	}
+
 
 }

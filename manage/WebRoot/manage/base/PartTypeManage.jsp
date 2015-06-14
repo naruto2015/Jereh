@@ -212,11 +212,13 @@ function print(){
 	//alert(state);
 	$.ajax({
 		url:'/manage/util/PrintServlet',
-		data:{"type":type,"id":id,"name":name,"state":state,"remark":remark},
+		data:{"type":type,"id":id,"name":name,"state":state,"remark":remark,"ftl":"tem.ftl"},
 		type:'post',
+		datatype:'json',
 		success:function(data){
-			if(data==1){
-				$.messager.alert("信息提示","打印完成！");
+			if(data.fileName!=null){
+				window.location.href="/manage/cus/downloadServlet?fileName="+data.fileName;
+				//$.messager.alert("信息提示","打印完成！");
 			}
 		}
 	});
