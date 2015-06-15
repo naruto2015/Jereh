@@ -387,6 +387,19 @@ function print(){
 	});
 	
 }
+function excel(){
+	$.ajax({
+		url:'/manage/purchase/ExcelServlet',
+		data:{"page":1,"rows":5},
+		type:'post',
+		datatype:'json',
+		success:function(data){
+			if(data.fileName!=null){
+				window.location.href="/manage/cus/downloadServlet?fileName="+data.fileName;
+			}
+		}
+	});
+}
 </script>
 </head>
 
