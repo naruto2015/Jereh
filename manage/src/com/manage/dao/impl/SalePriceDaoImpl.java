@@ -25,7 +25,7 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 		SalePrice sp=null;
 		
 		try {
-			while(rs.next()){
+		while(rs.next()){
 			sp=new SalePrice();
 			sp.setCode(rs.getString("code"));
 			sp.setSqdate(rs.getDate("sqdate"));
@@ -62,8 +62,7 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 		int ret=super.executeUpdate(sql,new Object[]{saleprice.getCode(),saleprice.getCustomerCode(),
 				saleprice.getContacter(),saleprice.getTelphone(),saleprice.getFax(),saleprice.getNums(),saleprice.getNumsPrice(),
 				saleprice.getIsShow(),saleprice.getState(),saleprice.getRemarks(),saleprice.getAdduser(),
-				saleprice.getAddusername(),saleprice.getAddip(),saleprice.getCompcode()});
-		
+				saleprice.getAddusername(),saleprice.getAddip(),saleprice.getCompcode()});	
 		
 		return ret;
 	}
@@ -71,9 +70,18 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 	@Override
 	public int updateSalePrice(SalePrice saleprice) {
 		// TODO Auto-generated method stub
-		String sql="update SALEQUOTATION set csname=?,contacter=?,telphone=? ,fax=?,remarks=? where code=?";
-		int ret=super.executeUpdate(sql,new Object[]{saleprice.getCs().getCsName(),saleprice.getContacter(),
-				saleprice.getTelphone(),saleprice.getFax(),saleprice.getRemarks(),saleprice.getCode()});
+		/*String sql="update (select b.*,a.csname from BASECUSTOMERSUPPLIER a join SALEQUOTATION  b on a.code= b.customercode ) c" +
+				"  set c.csname=?,c.contacter=?,c.telphone=? ,c.fax=?,c.remarks=? where c.code=?";*/
+		String sql="update  BASECUSTOMERSUPPLIER " +
+				"  set csname=?where code=?";
+		String sql1="update  SALEQUOTATION " +
+				"  set contacter=?,telphone=? ,fax=?,remarks=? where code=?";
+		/*int ret=super.executeUpdate(sql,new Object[]{
+				saleprice.getCs().getCsName(),
+				saleprice.getContacter(),
+				saleprice.getTelphone(),saleprice.getFax(),saleprice.getRemarks(),saleprice.getCode()});*/
+		int ret=super.executeUpdate(sql, new Object[]{ saleprice.getCs().getCsName(),saleprice.getCustomerCode()});
+		ret+=super.executeUpdate(sql1, new Object[]{saleprice.getContacter(),saleprice.getTelphone(),saleprice.getFax(),saleprice.getRemarks(),saleprice.getCode()});
 		return ret;
 	}
 
@@ -87,20 +95,23 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 	@Override
 	public SalePrice findByCode(String code) {
 		// TODO Auto-generated method stub
-		String sql="select * from SALEQUOTATION where code=?";
+		String sql="select b.*,a.csname from BASECUSTOMERSUPPLIER a join SALEQUOTATION  b on a.code= b.customercode where b.code=?";
 		ResultSet rs=null;
 		rs=super.executeQuery(sql,code);
 		SalePrice sp=null;
 		try {
-			if(rs.next()){
+			while(rs.next()){
 				sp=new SalePrice();
 				sp.setCode(rs.getString("code"));
+				sp.setCustomerCode(rs.getString("customercode"));
 				CustomerSupplier cs=new CustomerSupplier();
 				cs.setCsName(rs.getString("csname"));
 				sp.setCs(cs);
 				sp.setContacter(rs.getString("contacter"));
 				sp.setTelphone(rs.getString("telphone"));
 				sp.setFax(rs.getString("fax"));
+				sp.setState(rs.getString("state"));
+				sp.setAddusername(rs.getString("assusername"));
 				sp.setRemarks(rs.getString("remarks"));
 				
 			}
@@ -116,11 +127,12 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 	@Override
 	public PageBean findList(SalePrice sp, int pageNo, int pageSize) {
 		// TODO Auto-generated method stub
-		String sql="select * from SALEQUOTATION where 1=1";
+		String sql="select b.*,a.csname from BASECUSTOMERSUPPLIER a join SALEQUOTATION  b on a.code= b.customercode  where 1=1";
 		if(sp.getCode()!=null&&!sp.getCode().equals("")){
 			sql+=" and code="+"'"+sp.getCode()+"'";
 		}
-		if(sp.getCs().getCsName()!=null&&!sp.getCs().getCsName().equals("")){
+		if(sp.getCs()!=null&&!sp.getCs().equals("")){
+			if(sp.getCs().getCsName()!=null&&sp.getCs().getCsName().equals(""))
 			sql+=" and csName="+"'"+sp.getCs().getCsName()+"'";
 		}
 		if(sp.getSqdate()!=null&&!sp.getSqdate().equals("")){
@@ -164,7 +176,7 @@ public class SalePriceDaoImpl extends BaseDao implements SalePriceDao {
 	@Override
 	public PageBean findDetailList(String code,int pageNo,int pageSize) {
 		// TODO Auto-generated method stub
-		String sql="select * from SALEQUOTATION_DETAIL where code=?";
+		String sql="select * from SALEQUOTATION_DETAIL where code='"+code+"'";
 		ResultSet rs=null;
 		rs=super.executeQueryForPage(sql,pageNo,pageSize);
 		PageBean pageBean=new PageBean();

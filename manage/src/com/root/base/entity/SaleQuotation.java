@@ -1,42 +1,35 @@
 package com.root.base.entity;
 
-import java.util.Date;
-
 import com.manage.entity.CustomerSupplier;
 
-public class SaleOrder {
-
+public class SaleQuotation {
 	private String code;
-	private String orderDate;
+	private String sqDate;
 	private CustomerSupplier customerCode;
-	private String contActer;
-	private String tel;
+	private String contacter;
+	private String telPhone;
 	private String fax;
-	private String trans;
-	private String businesser;
-	private String deliveryDate;
-	private String remarks;
-	private String isShow;
 	private int nums;
-	private int numsPrice;
+	private float numsPrice;
+	private String isShow;
 	private String state;
+	private String remarks;
 	private String addDate;
 	private String addUser;
 	private String addUserName;
 	private String addIp;
-	
-	
+	private String compCode;
 	public String getCode() {
 		return code;
 	}
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getOrderDate() {
-		return orderDate;
+	public String getSqDate() {
+		return sqDate;
 	}
-	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate;
+	public void setSqDate(String sqDate) {
+		this.sqDate = sqDate;
 	}
 	public CustomerSupplier getCustomerCode() {
 		return customerCode;
@@ -44,17 +37,17 @@ public class SaleOrder {
 	public void setCustomerCode(CustomerSupplier customerCode) {
 		this.customerCode = customerCode;
 	}
-	public String getContActer() {
-		return contActer;
+	public String getContacter() {
+		return contacter;
 	}
-	public void setContActer(String contActer) {
-		this.contActer = contActer;
+	public void setContacter(String contacter) {
+		this.contacter = contacter;
 	}
-	public String getTel() {
-		return tel;
+	public String getTelPhone() {
+		return telPhone;
 	}
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setTelPhone(String telPhone) {
+		this.telPhone = telPhone;
 	}
 	public String getFax() {
 		return fax;
@@ -62,29 +55,17 @@ public class SaleOrder {
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
-	public String getTrans() {
-		return trans;
+	public int getNums() {
+		return nums;
 	}
-	public void setTrans(String trans) {
-		this.trans = trans;
+	public void setNums(int nums) {
+		this.nums = nums;
 	}
-	public String getBusinesser() {
-		return businesser;
+	public float getNumsPrice() {
+		return numsPrice;
 	}
-	public void setBusinesser(String businesser) {
-		this.businesser = businesser;
-	}
-	public String getDeliveryDate() {
-		return deliveryDate;
-	}
-	public void setDeliveryDate(String deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
-	public String getRemarks() {
-		return remarks;
-	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setNumsPrice(float numsPrice) {
+		this.numsPrice = numsPrice;
 	}
 	public String getIsShow() {
 		return isShow;
@@ -92,23 +73,17 @@ public class SaleOrder {
 	public void setIsShow(String isShow) {
 		this.isShow = isShow;
 	}
-	public int getNums() {
-		return nums;
-	}
-	public void setNums(int nums) {
-		this.nums = nums;
-	}
-	public int getNumsPrice() {
-		return numsPrice;
-	}
-	public void setNumsPrice(int numsPrice) {
-		this.numsPrice = numsPrice;
-	}
 	public String getState() {
 		return state;
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 	public String getAddDate() {
 		return addDate;
@@ -134,8 +109,10 @@ public class SaleOrder {
 	public void setAddIp(String addIp) {
 		this.addIp = addIp;
 	}
-	
-	
-	
+	public String getCompCode() {
+		return compCode;
+	}
+	public void setCompCode(String compCode) {
+		this.compCode = compCode;
+	}
 }
-

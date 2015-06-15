@@ -1,5 +1,10 @@
 package com.root.base.entity;
 
+/**
+ * @author 王亚军
+ * @date 2015-06-09
+ * @parms 入库详细 实体
+ */
 public class StockiInDetail {
 
 	private String code;
@@ -7,9 +12,10 @@ public class StockiInDetail {
 	private String orderCode;
 	private String pCode;
 	private int nums;
-	private int price;
+	private float price;
 	private String wareHouse;
 	private String remarks;
+	
 	public String getCode() {
 		return code;
 	}
@@ -40,10 +46,10 @@ public class StockiInDetail {
 	public void setNums(int nums) {
 		this.nums = nums;
 	}
-	public int getPrice() {
+	public float getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 	public String getWareHouse() {

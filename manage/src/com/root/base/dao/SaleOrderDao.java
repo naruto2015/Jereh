@@ -1,9 +1,10 @@
 package com.root.base.dao;
 
-import java.util.List;
+import java.util.List; 
 
 import com.root.base.entity.PageBean;
 import com.root.base.entity.SaleOrder;
+import com.root.base.entity.Stock;
 
 public interface SaleOrderDao {
 
@@ -21,4 +22,7 @@ public interface SaleOrderDao {
 	
 	//修改订单
 	public int updateOrder(SaleOrder order);
+	
+	//查找配件信息
+	public PageBean findPartStockOpt(int pageNo,int pageSize,Stock parts);
 }

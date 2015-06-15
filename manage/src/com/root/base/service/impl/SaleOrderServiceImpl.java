@@ -4,8 +4,15 @@ import com.root.base.dao.SaleOrderDao;
 import com.root.base.dao.impl.SaleOrderDaoImpl;
 import com.root.base.entity.PageBean;
 import com.root.base.entity.SaleOrder;
+import com.root.base.entity.Stock;
 import com.root.base.service.SaleOrderService;
-
+/**
+ * 
+ * @author 王亚军
+ * @date 2015-06-08
+ * @parms 订单销售服务实现impl
+ *
+ */
 public class SaleOrderServiceImpl implements SaleOrderService {
 
 	private SaleOrderDao sod=new SaleOrderDaoImpl();
@@ -42,6 +49,16 @@ public class SaleOrderServiceImpl implements SaleOrderService {
 	public int updateOrder(SaleOrder order) {
 		// TODO Auto-generated method stub
 		return sod.updateOrder(order);
+	}
+
+	/**
+	 * @date 2015-06-09
+	 */
+	//选择配件
+	@Override
+	public PageBean getStockParts(int pageNo, int pageSize, Stock parts) {
+		// TODO Auto-generated method stub
+		return sod.findPartStockOpt(pageNo, pageSize, parts);
 	}
 
 }

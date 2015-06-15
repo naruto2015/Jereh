@@ -1,10 +1,16 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    
+    <style>
+    #table{
+     border:1px blue solid;
+     background-color: #08FE08;
+    }
+    </style>
     
     <title>My JSP 'priceList.jsp' starting page</title>
   <script src="${ pageContext.request.contextPath }/manage/console_ui/js/jquery.min.js" language="javascript"></script>
@@ -85,57 +91,104 @@ $('#detail').datagrid('getPager').pagination({
 		]],
    
    });
+   $("#info").datagrid({onDblClickRow:function(idx,data){
+   alert("tt");
+   $("input[name='cuscode']").val(data.code);
+		$("input[name='csname']").val(data.csName);
+		$("input[name='contacter']").val(data.linkMan);
+		$("input[name='telphone']").val(data.phone);
+		$("input[name='fax']").val(data.fax);
+		}});
 
 });
- 
+function add(){
+  $("input[name='opt']").val(1);
+		   $("#slist").submit();
+}
+  function save(){
+		   $("input[name='opt']").val(2);
+		   $("#slist").submit();
 	
-	
+	}
 	
 	</script>
 
   </head>
-  
+  <%
+  Date date=new Date();
+     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	 String time=sdf.format(date);
+  %>
 		 
   <body>
-  <form action="">
-  <div>
-  <table>
-  <tr><td>报价编号：</td><td><input type="text" value=""  readonly="readonly"></td>
-    <td>报价日期：</td><td><input type="text"  value="" class="easyui-datebox"></td>
-  </tr>
-  <tr><td>客户名称</td><td><input type="text"></td><td>联系人员</td><td><input type="text"></td></tr>
-   <tr><td>电话</td><td><input type="text"></td><td>传真</td><td><input type="text"></td></tr>
-   <tr><td>备注</td><td colspan=4><input type="text"></td></tr>
-  </table>
+	<form action="/manage/sale/doSalePriceServlet" method="post" id="slist">
+	<input type="hidden" name="opt" />
+	<input type="hidden" value="${list.get(0).getCustomerCode() }" name="cuscode" />
+	<input type="hidden" value="${list.get(0).getState() }" name="state" />
+	<input type="hidden" value="${list.get(0).getAddusername() }" name="addusername" />
+		<div>
+			<table id="table">
+				<tr>
+					
+					<td>报价编号：</td>
+					<td><input type="text" value="${list.get(0).getCode() }"
+						readonly="readonly" name="priceCode">
+					</td>
+					<td>报价日期：</td>
+					<td><input type="text" value="<%=time %>" class="easyui-datebox" name="sqdate">
+					</td>
+				</tr>
+				<tr>
+					<td>客户名称</td>
+					<td><input type="text" value="${list.get(0).getCs().getCsName() }" name="csname">
+					</td>
+					<td>联系人员</td>
+					<td><input type="text" value="${list.get(0).getContacter() }" name="contacter">
+					</td>
+				</tr>
+				<tr>
+					<td>电话</td>
+					<td><input type="text" value="${list.get(0).getTelphone() }" name="telphone">
+					</td>
+					<td>传真</td>
+					<td><input type="text" value="${list.get(0).getFax() }" name="fax">
+					</td>
+				</tr>
+				<tr>
+					<td>备注</td>
+					<td colspan=4><input type="text" value="${list.get(0).getRemarks() }" name="remarks">
+					</td>
+					
+				</tr>
+			</table>
 
-  </div>
-    <input type="button" value="新增" onclick="add()"/>
-  <input type="button" value="添加配件" onclick="addlpart()"/>
-  <input type="button" value="保存" onclick="save()"/>
-  <input type="button" value="撤销" onclick="retu()"/>
-  <input type="button" value="打印" onclick="print()"/>
-  <input type="button" value="生成word" onclick="outWord()"/>
-  <input type="button" value="生成订单" onclick="outOrder()"/>
-  <input type="button" value="关闭" onclick="close()"/>
-  </form>
-  
-  <div id="detail">
-  
-  </div>
-  
-  
-  <div id="tool">
-  <form  method="post">
-  <b>检索条件</b>
-  客户代号：<input type="text" name="code">
-  客户名称：<input type="text" name="name">
-  <input type="button" value="搜索" onclick="search()" />
-  <input type="reset" value="重置" />
-  </form>
- </div>
- <div id="dialog"  title="请选择客户" style="height:300px ; width:700px;">
+		</div>
+		<input type="button" value="新增" onclick="add()" /> <input
+			type="button" value="添加配件" onclick="addlpart()" /> <input
+			type="button" value="保存" onclick="save()" /> <input type="button"
+			value="撤销" onclick="retu()" /> <input type="button" value="打印"
+			onclick="print()" /> <input type="button" value="生成word"
+			onclick="outWord()" /> <input type="button" value="生成订单"
+			onclick="outOrder()" /> <input type="button" value="关闭"
+			onclick="close()" />
+	</form>
+
+	<div id="detail"></div>
+
+
+	<div id="tool">
+		<form method="">
+			<b>检索条件</b>
+			 客户代号：<input type="text" name="code"> 
+			客户名称：<input type="text" name="name"> 
+			<input type="button" value="搜索" onclick="search()" /> 
+			<input type="reset" value="重置" />
+		</form>
+	</div>
+	<div id="dialog"  title="请选择客户" style="height:300px ; width:700px;">
  <div id="info">
   </div>
+   
   </div>
 
   </body>
