@@ -199,7 +199,7 @@ function show1(){
 			url:'/manage/purchase/AddPoDetailServlet',
 			data:{"ocode":ocode,"xcode":xcode}
 		});
-		$("#searchList").datagrid("reload",ocode);
+		show2(ocode);
 	}});
 }
 function clo(){
@@ -236,7 +236,7 @@ function addPart(){
 			data:{"ocode":ocode,"pcode":pcode,"nums":"5"}
 		});
 	}});
-	$("#searchList").datagrid("reload",ocode);
+	show2(ocode);
 }
 function choosePerson(){
 	$("#mydg4").dialog("open");
@@ -346,6 +346,7 @@ function show2(ocode){
 			{field:'lastPrice',title:'上次价格'},
 		]]
 	});
+	$("#searchList").datagrid("reload",ocode);
 }
 function del(dcode){
 	$.ajax({
@@ -361,18 +362,18 @@ function check(){
 	$("input[name='state']").val("1");
 }
 function print(){
-	var ocode=$("select[name='code1']").val();
+	var ocode=$("input[name='code1']").val();
 	var odate=$("input[name='odate']").val();
 	var csname=$("input[name='csname']").val();
 	var linkman=$("input[name='linkman']").val();
 	var tel=$("input[name='tel']").val();
 	var fax=$("input[name='zip']").val();
-	var trans=$("input[name='way']").val();
+	var trans=$("select[name='way']").val();
 	var ddate=$("input[name='ddate']").val();
 	var person=$("input[name='person']").val();
 	var remark=$("input[name='remarks']").val();
 	$.ajax({
-		url:'/manage/util/PrintPurOrderServlet',
+		url:'/manage/purchase/PrintPurOrderServlet',
 		data:{"ocode":ocode,"odate":odate,"csname":csname,"linkman":linkman,"tel":tel,"fax":fax,
 			"trans":trans,"ddate":ddate,"person":person,"remark":remark,"ftl":"Purorder.ftl"},
 		type:'post',
@@ -410,8 +411,8 @@ function print(){
 	<form id="myFrm" method="post">
 	<input type="hidden" name="supplierCode">
 	<input type="hidden" name="operator" value="bimt">
-	<input type="hidden" name="nums1" >
-	<input type="hidden" name="numsPrice1" >
+	<input type="hidden" name="nums1" value="20">
+	<input type="hidden" name="numsPrice1" value="3800">
 	<input type="hidden" name="state" value="0">
     <table id="t">
     <tr><td>订单编号:</td><td><input type="text" name="code1" /></td>
